@@ -15,6 +15,7 @@ from .. import db
 
 
 @guest_bp.route('/')
+@login_required
 def home():
     mats, names, courses, times, l = extract_attendance()
     return render_template('home.html', mats=mats, names=names, courses=courses, times=times, l=l, totalreg=totalreg(),
@@ -22,6 +23,7 @@ def home():
 
 
 @guest_bp.route('/attendance')
+@login_required
 def attendance_list():
     mats, names, courses, times, l = extract_attendance()
     return render_template('attendance.html', mats=mats, names=names, courses=courses, times=times, l=l,
@@ -30,6 +32,7 @@ def attendance_list():
 
 ## List users page
 @guest_bp.route('/listusers')
+@login_required
 def listusers():
     userlist, names, rolls, l = getallusers()
     return render_template('listusers.html', userlist=userlist, names=names, rolls=rolls, l=l, totalreg=totalreg(),
@@ -38,6 +41,7 @@ def listusers():
 
 ## Delete functionality
 @guest_bp.route('/deleteuser', methods=['GET'])
+@login_required
 def deleteuser():
     duser = request.args.get('user')
     deletefolder('static/faces/' + duser)
@@ -59,6 +63,7 @@ def deleteuser():
 # Our main Face Recognition functionality.
 # This function will run when we click on Take Attendance Button.
 @guest_bp.route('/start', methods=['GET'])
+@login_required
 def start():
     names, rolls, times, l = extract_attendance()
 
