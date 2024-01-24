@@ -107,4 +107,4 @@ venv.bak/
 
 /app/static/faces/
 /app/static/uploads/
-/migrations/
+migrations

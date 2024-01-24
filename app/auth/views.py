@@ -42,6 +42,7 @@ def login():
             if not next_url or not next_url.startswith('/'):
                 next_url = url_for('auth.profile')
             session['next_url'] = next_url
+            session['user_role'] = user.role
 
             return redirect(next_url)
         else:
