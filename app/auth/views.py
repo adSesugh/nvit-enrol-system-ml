@@ -38,7 +38,6 @@ def login():
             login_user(user)
             # Store the intended URL in the session
             next_url = request.args.get('next')
-            print(next_url)
             if not next_url or not next_url.startswith('/'):
                 next_url = url_for('auth.profile')
             session['next_url'] = next_url

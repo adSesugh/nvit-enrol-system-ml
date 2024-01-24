@@ -14,7 +14,7 @@ from utils.common import extract_attendance, totalreg, datetoday2, add_attendanc
 from .. import db
 
 
-@guest_bp.route('/')
+@guest_bp.route('/capture')
 @login_required
 def home():
     mats, names, courses, times, l = extract_attendance()
