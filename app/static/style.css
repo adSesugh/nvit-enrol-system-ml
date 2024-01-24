@@ -1,0 +1,120 @@
+
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+        body {
+            background-image: url('https://cutewallpaper.org/21/1920-x-1080-gif/1920x1080-Wallpapercartoon-Wallpapers-Driverlayer-Search-.gif');
+            background-size: cover;
+            font-family: sans-serif;
+            margin-top: 40px;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            border: 1px;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 86%;
+            margin: auto;
+        }
+
+        td,
+        th {
+            border: 1px solid black !important;
+            padding: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        /* your CSS goes here*/
+     body {
+        background: #eee
+    }
+
+     .upe-mutistep-form .step{
+        display: none;
+    }
+    .upe-mutistep-form .step-header .steplevel {
+        position: relative;
+        flex: 1;
+        padding-bottom: 30px;
+    }
+    .upe-mutistep-form .step-header .steplevel.active {
+        font-weight: 600;
+    }
+    .upe-mutistep-form .step-header .steplevel.finish {
+        font-weight: 600;
+        color: #009688;
+    }
+    .upe-mutistep-form .step-header .steplevel::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        z-index: 9;
+        width: 20px;
+        height: 20px;
+        background-color: #d5efed;
+        border-radius: 50%;
+        border: 3px solid #ecf5f4;
+    }
+    .upe-mutistep-form .step-header .steplevel.active::before {
+        background-color: #3fbdb4;
+        border: 3px solid #d5f9f6;
+    }
+    .upe-mutistep-form .step-header .steplevel.finish::before {
+        background-color: #3fbdb4;
+        border: 3px solid #3fbdb4;
+    }
+    .upe-mutistep-form .step-header .steplevel::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 8px;
+        width: 100%;
+        height: 3px;
+        background-color: #f3f3f3;
+    }
+    .upe-mutistep-form .step-header .steplevel.active::after {
+        background-color: #a7ede8;
+    }
+    .upe-mutistep-form .step-header .steplevel.finish::after {
+        background-color: #009688;
+    }
+    .upe-mutistep-form .step-header .steplevel:last-child:after {
+        display: none;
+    }
+
+    .btn-color {
+        background-color: #03405D !important;
+    }
+
+    @media print {
+        body {
+            visibility: hidden;
+            position: relative;
+        }
+
+        #card {
+            visibility: visible;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            bottom: 0px;
+            right: 0px;
+        }
+    }
+
+    .custom-card {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        row-gap: 5px;
+    }

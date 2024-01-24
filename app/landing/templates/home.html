@@ -1,0 +1,343 @@
+{% extends 'guest_base.html' %}
+
+{% block content %}
+    <div class='mt-3 text-center'>
+        <h1 style="width: auto;margin: auto;padding: 11px;font-size: 34px;">NVIT's  AI-Enhanced Biometric Enrollment and Secure Document Verification Platform</h1>
+    </div>
+    {% if mess%}
+        <p class="text-center" style="color: red;font-size: 20px;">{{ mess }}</p>
+    {% endif %}
+
+    <div class="row text-center" style="padding: 20px;margin: 20px;">
+        <div class="col"
+            style="border-radius: 20px;background-color:rgb(211,211,211,0.5);margin:0px 10px 0px 10px;height: 700px;">
+            <h2 class="btn-color" style="border-radius: 20px 20px 0px 0px;background-color: #0b4c61;color: white;padding: 10px;">Capture Student Data <i class="material-icons">control_point_duplicate</i></h2>
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto col-lg-8 mt-2">
+                    <form class="upe-mutistep-form" id="Upemultistepsform" action='/add' method="POST" enctype="multipart/form-data">
+                        <div class="step-header d-flex mb-4">
+                            <span class="steplevel">Personal Information</span>
+                            <span class="steplevel">Emergency Contact</span>
+                            <span class="steplevel">Guardian</span>
+                            <span class="steplevel">Disability Information</span>
+                            <span class="steplevel">Other Data</span>
+                            <span class="steplevel">Term and Conditions</span>
+                            <span class="steplevel">Face Recognition Capturing</span>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control" {% if student %} value="{{ student.first_name }}" {% endif %} placeholder="First Name" name="first_name" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your first name.
+                                          </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="text" class="form-control" {% if student %} value="{{ student.middle_name }}" {% endif %} placeholder="Middle Name" name="middle_name">
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="text" class="form-control" {% if student %} value="{{ student.last_name }}" {% endif %} placeholder="Last Name" name="last_name" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <input type="email" class="form-control" {% if student %} value="{{ student.email }}" {% endif %} placeholder="Email Address" name="email" required>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="text" class="form-control" {% if student %} value="{{ student.phone_number }}" {% endif %} placeholder="Phone Number" name="phone_number" required>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="date" class="form-control" {% if student %} value="{{ student.dob }}" {% endif %} placeholder="Date of Birth" name="dob" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <select name="gender" class="form-select" required>
+                                        <option value="" disabled selected>Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <select name="state_of_origin" onchange="getState(this);" class="form-select" id="stateOfOrigin" required></select>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <select name="lga_of_origin" class="form-select" id="lgaOfOrigin" required>
+                                        <option value="" disabled selected>Select Local Government Area</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <select name="course_of_study" class="form-select" id="courseOfStudy" required>
+                                        <option value="" disabled selected>Select Course of Study</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <select name="means_of_id" class="form-select">
+                                        <option value="" disabled selected>Select Means of ID</option>
+                                        <option value="NIN">NIN</option>
+{#                                        <option value="PVC">PVC</option>#}
+{#                                        <option value="Passport">Passport</option>#}
+{#                                        <option value="Driver's license">Driver's license</option>#}
+{#                                        <option value="Other">Other</option>#}
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="file" accept="image/png,jpeg,jpg" class="form-control" placeholder="" name="means_of_id_upload">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <input type="number" class="form-control" {% if student %} value="{{ student.means_of_id_no }}" {% endif %} placeholder="NIN Number" name="means_of_id_no" required>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <select name="level_of_education" class="form-select" required>
+                                        <option value="" disabled selected>Select Level of Education</option>
+                                        <option value="PhD">PhD</option>
+                                        <option value="Masters">Masters</option>
+                                        <option value="PGD">Post Graduate Diploma</option>
+                                        <option value="Bachelor degree">Bachelor degree</option>
+                                        <option value="HND">HND</option>
+                                        <option value="ND">National Diploma</option>
+                                        <option value="NCE">NCE</option>
+                                        <option value="SSCE">SSCE</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <select name="employment_status" class="form-select" required>
+                                        <option value="" disabled selected>Select Employment Status</option>
+                                        <option value="Employed">Employed</option>
+                                        <option value="Unemployed">Unemployed</option>
+                                        <option value="Self employed">Self Employed</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <textarea name="address" rows='2' class="form-control" required placeholder="Home Address"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <input type="text" {% if student %} value="{{ student.emergency_full_name }}" {% endif %} class="form-control" placeholder="Full Name" name="emergency_full_name" required >
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="email" class="form-control" {% if student %} value="{{ student.emergency_email }}" {% endif %} placeholder="Email address" name="emergency_email" required>
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <input type="number" class="form-control" {% if student %} value="{{ student.emergency_phone_number }}" {% endif %} placeholder="Phone Number" name="emergency_phone_number" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <textArea name="emergency_address" rows='3' class="form-control" required placeholder="Home Address"></textArea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="mb-3 col-6">
+                                    <input type="text" class="form-control" {% if student %} value="{{ student.guardian_first_name }}" {% endif %} placeholder="First Name" name="guardian_first_name" required >
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input type="text" class="form-control" {% if student %} value="{{ student.guardian_last_name }}" {% endif %} placeholder="Last Name" name="guardian_last_name" required>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input type="number" class="form-control" {% if student %} value="{{ student.guardian_phone_number }}" {% endif %} placeholder="Phone Number" name="guardian_phone_number" required>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input type="email" class="form-control" {% if student %} value="{{ student.guardian_email }}" {% endif %} placeholder="Email Address" name="guardian_email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <textArea name="guardian_address" rows='3' class="form-control" required placeholder="Home Address"></textArea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <select name="disabled" class="form-select" required>
+                                        <option value="" disabled selected>Select yes if disabled</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <textArea name="disability_detail" rows='6' class="form-control" placeholder="Disability Details"></textArea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label for="signature" class="form-label">Upload Signature</label>
+                                    <input type="file" accept="image/png,jpeg,jpg" class="form-control" placeholder="" name="signature">
+                                </div>
+                                <div class="form-group col-lg-6 mb-3 align-left">
+                                    <label class="form-label" for="headshot">Normal Headshot</label>
+                                    <div class="input-group">
+                                        <input type="hidden" id="headshotData" accept="image/png,jpeg,jpg" class="form-control" name="headshot">
+                                        <input type="button" id="takeSnapshot" class="form-control btn-primary btn-color" style="color: white;" value="Take Snapshot" onclick="take_snapshot()">
+                                    </div>
+                                    <div class="row" style="display: flex;">
+                                        <div class="col-lg-6">
+                                            <div class="flex position-relative justify-content-center align-center">
+                                                <video id="video" width="400" height="400" autoplay style="display: none"></video>
+                                                <div style="display: none; width: 400px; position: absolute; bottom: 80px; justify-content: center; align-items: center" id="capCaption">
+                                                    <input type="button" id="captureButton" class="btn-info position-absolute px-2 py-1 w-75 rounded-1 bg-transparent text-white text-uppercase border-2" value="Capture Photo" />
+                                                </div>
+                                            </div>
+                                            <img id="capturedImage" src="" alt="headshot" width="300" height="300" style="display: none; margin-top: 12px;" />
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <canvas id="canvas" style="display: none;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step mb-3">
+                            <div class="row my-4">
+                                <div class="col-md-auto">
+                                    <div class="form-check">
+                                        <input name='terms' {% if student %} {% if student.terms == 'Yes' %} checked {% endif %} {% endif %} class="form-check-input" type="checkbox" id="invalidCheck" required>
+                                        <label class="form-check-label" for="invalidCheck">
+                                            Agree to terms and conditions
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree before submitting.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step mb-3">
+                            <div class="row">
+                                <h1>Facial Recognition Needed!</h1>
+                                <h3>Please ask the learner to sit facing the camera, so we can capture their image.</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex btn-row">
+                            <button class="btn btn-primary fw-bold m-1 px-5 py-2 btn-color" id="prevBtn" onclick="nextPrev(-1)" type="button">Previous</button>
+                            <button class="btn btn-primary fw-bold m-1 px-5 py-2 btn-color" id="nextBtn" onclick="nextPrev(1)" type="button">Next</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            'use strict'
+          
+            let dropdown = $('#stateOfOrigin');
+
+              dropdown.empty();
+  
+              dropdown.append('<option value="" disabled selected="true">Select State of Origin</option>');
+              dropdown.prop('selectedIndex', 0);
+  
+              fetch("./static/nigeria-state-and-lgas.json").then((res) => { 
+                      return res.json(); 
+                  }).then((data) => {
+                      data.forEach(el => {
+                          dropdown.append($('<option></option>').attr('value', el.state).text(el.state));
+                      })
+                  });
+
+            let courseDropdown = $('#courseOfStudy')
+            courseDropdown.empty();
+            courseDropdown.append('<option value="" disabled selected="true">Select Course of Study</option>');
+            courseDropdown.prop('selectedIndex', 0);
+  
+              fetch("./static/courses.json").then((res) => { 
+                      return res.json(); 
+                  }).then((data) => {
+                      data.forEach(el => {
+                        courseDropdown.append($('<option></option>').attr('value', el).text(el));
+                      })
+                  });
+
+        })
+
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('captureButton');
+        const capturedImage = document.getElementById('capturedImage');
+        const captureCaption = document.getElementById('capCaption')
+        const fileInput = document.getElementById('headshotData');
+
+        function getState(sel){
+            let dropdown = $('#lgaOfOrigin');
+
+              dropdown.empty();
+  
+              dropdown.append('<option value="" disabled selected="true">Select LGA of Origin</option>');
+              dropdown.prop('selectedIndex', 0);
+  
+              fetch("./static/nigeria-state-and-lgas.json").then((res) => { 
+                      return res.json(); 
+                  }).then((data) => {
+                    const lga = data.filter(a => a.state == sel.value)[0].lgas
+                    lga.forEach(el => {
+                        dropdown.append($('<option></option>').attr('value', el).text(el));
+                    })
+                });
+        }
+
+        function take_snapshot() {
+            // Get access to the webcam
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                }).catch(error => console.error(error));
+            captureCaption.style.display = 'flex'
+            captureCaption.style.width = '100%'
+            video.style.display = 'block'
+            capturedImage.style.display = 'none'
+            capturedImage.src = ''
+        }
+
+         captureButton.addEventListener('click', (e) => {
+             const context = canvas.getContext('2d');
+             canvas.width = video.videoWidth;
+             canvas.height = video.videoHeight;
+             context.drawImage(video, 0, 0);
+
+             // Get base64 encoded image data
+             const imageData = canvas.toDataURL('image/jpeg');
+
+             // Display captured image
+             capturedImage.src = imageData;
+
+             fileInput.value = imageData
+
+             capturedImage.style.display = 'block';
+             captureCaption.style.display = 'none'
+             video.style.display = 'none'
+             video.srcObject.getTracks().forEach(track => track.stop());
+         })
+
+        function dataURLtoFile(dataurl, filename) {
+            var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], filename, {type:mime});
+        }
+    </script>
+
+{% endblock %}

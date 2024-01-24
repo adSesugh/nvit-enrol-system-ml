@@ -1,0 +1,76 @@
+{% extends 'guest_base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col" style="border-radius: 20px;padding: 0px;background-color:rgb(211,211,211,0.5);margin:0px 10px 10px 10px;min-height: 600px;">
+            <h2 style="border-radius: 20px 20px 0px 0px;background-color: #0b4c61;color: white;padding: 10px;display:flex;justify-content: center">Today's
+                Admitted List<i class="material-icons">assignment</i></h2>
+            <div style="display:flex;justify-content: center; align-items: center">
+                <a style="text-decoration: none" href="/start">
+                    <button
+                        style="font-size: 24px;font-weight: bold;border-radius: 10px;width:490px;padding: 10px;margin-top: 30px;margin-bottom: 30px;"
+                        type='submit' class='btn btn-primary'>Face Capture<i
+                            class="material-icons">beenhere</i></button>
+                </a>
+                <a href="/download-list">
+                    <button class="btn btn-primary">Download List</button>
+                </a>
+            </div>
+            <table style="background-color: white;">
+                <thead>
+                    <tr>
+                        <th>S/No</th>
+                        <th>Student No</th>
+                        <th>Student Details</th>
+                        <th>Gender</th>
+                        <th>Course Applied</th>
+                        <th>Headshot</th>
+                        <th>Signature</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for (index, student) in enumerate(students) %}
+
+                        <tr>
+                            <td align="center">{{ index + 1 }}</td>
+                            <td>
+                                <a style="text-decoration: none" href="{{ url_for('guest.student', id=student.id) }}">{{ student.student_no }}</a>
+                            </td>
+                            <td>
+                                <small>
+                                    <b>Full Name:&nbsp;</b>
+                                    {{ student.first_name }} {{ ' ' }}
+                                    {% if student.middle_name %}
+                                        {{ student.middle_name }}
+                                    {% else %}
+                                       {{ 'None' }}
+                                    {% endif %}
+                                    {{ ' ' }}
+                                    {{ student.last_name }}
+                                </small>
+                                <div><small><b>Email:&nbsp;</b>{{ student.email }}</small></div>
+                                <div><small><b>Phone Number&nbsp;</b>{{ student.phone_number }}</small></div>
+                            </td>
+                            <td>{{ student.gender }}</td>
+                            <td>{{ student.course_of_study }}</td>
+                            <td>
+                                 {% if student.headshot %}
+                                    <img style="border: 1px; border-radius: 25px" src="{{ student.headshot }}" alt="{{ student.first_name }}" width="80" height="80" />
+                                 {% else %}
+                                    {{ 'None' }}
+                                 {% endif %}
+                            </td>
+                            <td>
+                                <img style="" src="{{ url_for('static', filename=student.signature) }}" alt="{{ student.first_name }}" height="80" width="80" />
+                            </td>
+                            <td>{{ student.created }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
