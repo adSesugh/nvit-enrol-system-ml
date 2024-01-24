@@ -20,7 +20,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.urandom(64)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DEVELOPMENT_DATABASE_URL')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
     db.init_app(app)
     login_manager.init_app(app)
