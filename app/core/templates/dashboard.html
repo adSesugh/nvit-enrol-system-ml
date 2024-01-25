@@ -79,7 +79,7 @@
                         <div class="card-header mt-2">
                             <h4 class="card-title mb-1">Code Description</h4>
                         </div>
-                        <div class="row flex-column d-flex">
+                        <div class="row">
                             {% for (index, code) in enumerate(records.stats.labels) %}
                                 <div class="col-12 my-1 card-text" style="font-size: 12px;">{{ code }} - {{ records.stats.courses[index] }}</div>
                             {% endfor %}

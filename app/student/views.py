@@ -40,7 +40,7 @@ def album_list():
         Student.lga_of_origin,
         Student.state_of_origin,
         Student.headshot
-    ).all()
+    ).order_by(Student.student_no).all()
     return render_template(
         "student/cards.html", students=students, title="Student Album"
     )
