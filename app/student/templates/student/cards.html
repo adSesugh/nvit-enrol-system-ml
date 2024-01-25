@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} Student Album {% endblock %}
+
+{% block content %}
+    <style>
+
+    </style>
+    <div class="">
+        <div class="album-card" style="--bs-columns: 4;">
+            {% if students %}
+                {% for student in students %}
+                    <div class="grid card h-100 mb-5" style="width: 18rem; margin-bottom: 5px;">
+                        {% if student.headshot %}
+                            <img src="{{ student.headshot }}" class="card-img-top h-50" alt="{{ student.first_name }}">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top" alt="{{ student.first_name }}">
+                        {% endif %}
+                        <div class="card-body px-3">
+                            <div class="row no-gutters mb-1">
+                                <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Learner's Name:&nbsp;</div>
+                                <div class="col-8"><h6 class="card-text text-uppercase" style="font-size: 10px;">{{ student.first_name|capitalize }} {{ student.middle_name|capitalize }} {{ student.last_name|capitalize }}</h6></div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Learner ID:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 10px;">{{ student.student_no }}</div>
+                            </div>
+                            <hr class="my-1" />
+                            <div class="row no-gutters my-1">
+                              <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Course of Study:&nbsp;</div>
+                              <div class="col-8 card-text" style="font-size: 10px;">{{ student.course_of_study }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                              <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Gender:&nbsp;</div>
+                              <div class="col-8 card-text" style="font-size: 10px;">{{ student.gender|capitalize }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                              <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Phone:&nbsp;</div>
+                              <div class="col-8 card-text" style="font-size: 10px;">{{ student.phone_number|capitalize }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                              <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Email:&nbsp;</div>
+                              <div class="col-8 card-text" style="font-size: 10px;">{{ student.email}}</div>
+                            </div>
+                            <hr class="my-1" />
+                            <div class="d-flex justify-content-between align-center">
+                                <span class="card-text" style="font-size: 10px"><b>State:</b>&nbsp;{{ student.state_of_origin|capitalize }}</span>
+                                <span class="card-text" style="font-size: 10px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
+                            </div>
+                            <div class="my-1">
+
+                                {% if student.means_of_id_no %}
+                                    <span class="card-text" style="font-size: 12px;"><b>NIN:</b> {{ student.means_of_id_no }}</span>
+                                {% else %}
+                                    <span class="card-text" style="font-size: 12px;">Pending</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="card">
+                    <div class="d-flex card-body justify-content-center align-content-center">
+                        <h5 class="card-title">No Record found!</h5>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+          </div>
+    </div>
+{% endblock %}

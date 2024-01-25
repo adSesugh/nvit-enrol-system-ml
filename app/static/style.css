@@ -118,3 +118,9 @@
         grid-template-columns: repeat(5, 1fr);
         row-gap: 5px;
     }
+
+    .album-card {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 5px;
+    }
