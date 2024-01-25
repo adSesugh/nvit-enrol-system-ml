@@ -4,10 +4,10 @@
 
 {% block content %}
     <div class="container-fluid mt-2" id="card">
-        <div class="row">
+        <div class="row px-0">
             {% if students %}
                 {% for student in students %}
-                    <div class="card col-4 col-sm-4 col-lg-3 m-1 px-0">
+                    <div class="card col-3 col-sm-3 col-lg-3 px-0 no-gutters">
                         {% if student.headshot %}
                             <img src="{{ student.headshot }}" class="card-img-top h-50 w-100" alt="{{ student.first_name }}">
                         {% else %}
@@ -15,41 +15,41 @@
                         {% endif %}
                         <div class="card-body px-2">
                             <div class="row no-gutters mb-1">
-                                <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Learner's Name:&nbsp;</div>
-                                <div class="col-8"><h6 class="card-text text-uppercase" style="font-size: 10px;">{{ student.first_name|capitalize }} {{ student.middle_name|capitalize }} {{ student.last_name|capitalize }}</h6></div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner's Name:&nbsp;</div>
+                                <div class="col-8"><h6 class="card-text text-uppercase" style="font-size: 12px;">{{ student.first_name|capitalize }} {{ student.middle_name|capitalize }} {{ student.last_name|capitalize }}</h6></div>
                             </div>
                             <div class="row no-gutters my-1">
-                                <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Learner ID:&nbsp;</div>
-                                <div class="col-8 card-text" style="font-size: 10px;">{{ student.student_no }}</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner ID:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
                             </div>
                             <hr class="my-1" />
                             <div class="row no-gutters my-1">
-                            <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Course of Study:&nbsp;</div>
-                            <div class="col-8 card-text" style="font-size: 10px;">{{ student.course_of_study }}</div>
+                            <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
+                            <div class="col-8 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
                             </div>
                             <div class="row no-gutters my-1">
-                            <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Gender:&nbsp;</div>
-                            <div class="col-8 card-text" style="font-size: 10px;">{{ student.gender|capitalize }}</div>
+                            <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Gender:&nbsp;</div>
+                            <div class="col-8 card-text" style="font-size: 12px;">{{ student.gender|capitalize }}</div>
                             </div>
                             <div class="row no-gutters my-1">
-                            <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Phone:&nbsp;</div>
-                            <div class="col-8 card-text" style="font-size: 10px;">{{ student.phone_number|capitalize }}</div>
+                            <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
+                            <div class="col-8 card-text" style="font-size: 12px;">{{ student.phone_number|capitalize }}</div>
                             </div>
                             <div class="row no-gutters my-1">
-                            <div class="col-4 card-text" style="font-size: 10px; font-weight: bold;">Email:&nbsp;</div>
-                            <div class="col-8 card-text" style="font-size: 10px;">{{ student.email}}</div>
+                            <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
+                            <div class="col-8 card-text" style="font-size: 12px;">{{ student.email}}</div>
                             </div>
                             <hr class="my-1" />
                             <div class="d-flex justify-content-between align-center">
-                                <span class="card-text" style="font-size: 10px"><b>State:</b>&nbsp;{{ student.state_of_origin|capitalize }}</span>
-                                <span class="card-text" style="font-size: 10px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
+                                <span class="card-text" style="font-size: 12px"><b>State:</b>&nbsp;{{ student.state_of_origin|capitalize }}</span>
+                                <span class="card-text" style="font-size: 12px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
                             </div>
                             <div class="my-1">
 
                                 {% if student.means_of_id_no %}
-                                    <span class="card-text" style="font-size: 10px;"><b>NIN:</b> {{ student.means_of_id_no }}</span>
+                                    <span class="card-text" style="font-size: 12px;"><b>NIN:</b> {{ student.means_of_id_no }}</span>
                                 {% else %}
-                                    <span class="card-text" style="font-size: 10px;">Pending</span>
+                                    <span class="card-text" style="font-size: 12px;">Pending</span>
                                 {% endif %}
                             </div>
                         </div>
