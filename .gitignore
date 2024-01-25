@@ -109,3 +109,4 @@ venv.bak/
 /app/static/uploads/
 migrations
 seed.py
+/app/Attendance

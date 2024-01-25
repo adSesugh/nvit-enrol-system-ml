@@ -39,6 +39,7 @@ def album_list():
         Student.email,
         Student.lga_of_origin,
         Student.state_of_origin,
+        Student.headshot
     ).all()
     return render_template(
         "student/cards.html", students=students, title="Student Album"
