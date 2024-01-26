@@ -20,16 +20,29 @@ def dashboard():
     male_count = Student.query.filter_by(gender='Male').count()
     grouped = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
         Student.course_of_study).all()
-    disability = db.session.query(Student.disabled, func.count().label('count_disabled')).group_by(Student.disabled).all()
     male_disabled = Student.query.filter_by(disabled='yes', gender='Male').count()
     female_disabled = Student.query.filter_by(disabled='yes', gender='Female').count()
+
+    result = db.session.query(
+        Student.disabled,
+        Student.gender,
+        Student.course_of_study,
+        func.count().label('count')
+    ).group_by(
+        Student.disabled,
+        Student.gender,
+        Student.course_of_study
+    ).all()
+
+    # Convert the result to a list of dictionaries
+    stats_data = [
+        {'disabled': row[0], 'gender': row[1], 'course_of_study': course_code(row[2]), 'count': row[3]}
+        for row in result
+    ]
 
     labels = list()
     values = list()
     courses = list()
-    pwd_labels = list()
-    male = list()
-    female = list()
 
     for course in grouped:
         code = course_code(course[0])
@@ -50,21 +63,4 @@ def dashboard():
         'male_disabled': male_disabled
     }
 
-    # result = db.session.query(
-    #     Student.disabled,
-    #     Student.gender,
-    #     Student.course_of_study,
-    #     Student.employment_status,
-    #     func.count().label('count')
-    # ).group_by(
-    #     Student.disabled,
-    #     Student.gender,
-    #     Student.course_of_study,
-    #     Student.employment_status
-    # ).all()
-
-    # gender_courses_data = [
-    #     {'gender': row[0], 'course_of_study': course_code(row[1]), 'count': row[2]}
-    #     for row in result_gender_courses
-    # ]
-    return render_template('dashboard.html', records=data)
+    return render_template('dashboard.html', records=data, stats_data=stats_data)
