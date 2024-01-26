@@ -27,16 +27,12 @@
                         <a class="nav-link active" aria-current="page" href="{{ url_for('guest.home') }}">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('guest.registered_students') }}">Registered Students</a>
+                        <a class="nav-link" href="{{ url_for('guest.student_cards') }}">Registered Students</a>
                       </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('guest.student_cards') }}">Student Album</a>
-                        </li>
                     </ul>
-                    <form class="d-flex">
-                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                      <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <a class="btn btn-warning btn-xs text-white" href="{{ url_for('auth.logout') }}">
+                        <i class="icon-inbox"></i> Logout
+                    </a>
                   </div>
                 </div>
             </nav>

@@ -24,7 +24,7 @@ def register():
     return render_template("student/create.html")
 
 
-@student_bp.route("/ablum")
+@student_bp.route("/album")
 @login_required
 def album_list():
     students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()

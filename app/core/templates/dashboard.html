@@ -51,23 +51,57 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total Female</h4>
-                            <h4 class="text-dark font-weight-bold mb-2">{{ records.female_count }}</h4>
+                            <h4 class="card-title">Female Admitted</h4>
+                            <table style="width: '100%'" class="table d-lg-table">
+                                <tr>
+                                    <th>Status</th>
+                                    <td>Count</td>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td>{{ records.female_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td>{{ records.female_count - records.female_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <th>{{ records.female_count }}</th>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total Male</h4>
-                            <h4 class="text-dark font-weight-bold mb-2">{{ records.male_count }}</h4>
+                            <h4 class="card-title">Male Admitted</h4>
+                            <table style="width: '100%'" class="table d-lg-table">
+                                <tr>
+                                    <th>Status</th>
+                                    <td>Count</td>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td>{{ records.male_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td>{{ records.male_count - records.male_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <th>{{ records.male_count }}</th>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-7 d-flex grid-margin stretch-card">
-            <div class="card">
+        <div class="col-xl-7 d-flex flex-column grid-margin stretch-card">
+            <div class="card mb-3">
               <div class="card-body">
                   <h4 class="card-title">Applicant distribution against courses</h4>
                   <div class="row">
@@ -93,10 +127,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script>
         const ctx = document.getElementById('coursesChart');
+        const ctx_disabled = document.getElementById('femaleMaleChart');
         var labels = {{ records.stats.labels|tojson }};
         var course_data = {{ records.stats.data|tojson }};
 
-          new Chart(ctx, {
+        new Chart(ctx, {
             type: 'bar',
             data: {
               labels: labels,
@@ -130,6 +165,6 @@
                     }
                 }
             }
-          });
+        });
     </script>
 {% endblock %}

@@ -13,18 +13,18 @@
                         {% else %}
                             <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top w-100" alt="{{ student.first_name }}">
                         {% endif %}
-                        <div class="card-body px-2">
+                        <div class="card-body">
                             <div class="row no-gutters mb-1">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner's Name:&nbsp;</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Name:&nbsp;</div>
                                 <div class="col-8"><h6 class="card-text text-uppercase" style="font-size: 12px;">{{ student.first_name|capitalize }} {{ student.middle_name|capitalize }} {{ student.last_name|capitalize }}</h6></div>
                             </div>
                             <div class="row no-gutters my-1">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner ID:&nbsp;</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">ID:&nbsp;</div>
                                 <div class="col-8 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
                             </div>
-                            <hr class="my-1" />
+                            <hr class="my-1" style="border-width: 1px; border-style: solid; border-color: #2e383e;" />
                             <div class="row no-gutters my-1">
-                            <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
+                            <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course:&nbsp;</div>
                             <div class="col-8 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
                             </div>
                             <div class="row no-gutters my-1">
@@ -39,7 +39,7 @@
                             <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
                             <div class="col-8 card-text" style="font-size: 12px;">{{ student.email}}</div>
                             </div>
-                            <hr class="my-1" />
+                            <hr class="my-1" style="border-width: 1px; border-style: solid; border-color: #2e383e;" />
                             <div class="d-flex justify-content-between align-center">
                                 <span class="card-text" style="font-size: 12px"><b>State:</b>&nbsp;{{ student.state_of_origin|capitalize }}</span>
                                 <span class="card-text" style="font-size: 12px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>

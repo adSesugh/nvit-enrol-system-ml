@@ -15,6 +15,11 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+# @login_manager.unauthorized_handler
+# def unauthorized_handler():
+#     return 'Unauthorized', 401
+
+
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -35,13 +40,13 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user)
+            login_user(user, remember=form.remember_me.data)
             # Store the intended URL in the session
             next_url = request.args.get('next')
             if not next_url or not next_url.startswith('/'):
                 next_url = url_for('core.dashboard')
-            session['next_url'] = next_url
-            session['user_role'] = user.role
+            # session['next_url'] = next_url
+            # session['user_role'] = user.role
 
             return redirect(next_url)
         else:
