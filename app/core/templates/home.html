@@ -246,6 +246,54 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var currentTab = 0;
+        tabShow(currentTab);
+    
+        function tabShow(n) {
+            var x = document.getElementsByClassName("step");
+            var forms = document.querySelectorAll('.needs-validation')
+            x[n].style.display = "block";
+            if (n === 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n === (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit and Wait for Face Recognition"
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next"
+            }
+            activelevel(n)
+        }
+        function nextPrev(n) {
+            var x = document.getElementsByClassName("step");
+            
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                document.getElementById("Upemultistepsform").submit();
+                document.getElementById("prevBtn").disabled = true
+                document.getElementById("nextBtn").innerText = 'Please wait...'
+                document.getElementById("nextBtn").disabled = true
+    
+                return false;
+            }
+            tabShow(currentTab);
+        }
+        function backPrev(n) {
+            var x = document.getElementsByClassName("step");
+            x[n].style.display = "block";
+        }
+        function activelevel(n) {
+            var i, x = document.getElementsByClassName("steplevel");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            x[n].className += " active";
+        }
+    
+    </script>
     <script type="text/javascript">
         $(function () {
             'use strict'
