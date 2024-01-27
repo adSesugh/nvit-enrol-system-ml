@@ -1,5 +1,7 @@
 {% extends 'guest_base.html' %}
 
+{% block title %} Student List {% endblock %}
+
 {% block content %}
     <div class="container-fluid">
     <div class="row">
@@ -36,7 +38,7 @@
                         <tr>
                             <td align="center">{{ index + 1 }}</td>
                             <td>
-                                <a style="text-decoration: none" href="{{ url_for('guest.student', id=student.id) }}">{{ student.student_no }}</a>
+                                <a style="text-decoration: none" href="{{ url_for('core.student', id=student.id) }}">{{ student.student_no }}</a>
                             </td>
                             <td>
                                 <small>

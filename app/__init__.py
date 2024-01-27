@@ -30,12 +30,10 @@ def create_app():
     # Import and register blueprints
     from .auth.views import auth_bp
     from .student.views import student_bp
-    from .landing.views import guest_bp
     from .core.views import core_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(student_bp)
-    app.register_blueprint(guest_bp)
     app.register_blueprint(core_bp)
 
     return app

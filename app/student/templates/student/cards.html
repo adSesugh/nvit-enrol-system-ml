@@ -11,7 +11,7 @@
                         {% if student.headshot %}
                             <img src="{{ student.headshot }}" class="card-img-top h-50 w-100" alt="{{ student.first_name }}">
                         {% else %}
-                            <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top w-100" alt="{{ student.first_name }}">
+                            <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top h-50 w-100" alt="{{ student.first_name }}">
                         {% endif %}
                         <div class="card-body">
                             <div class="row no-gutters mb-1">

@@ -24,10 +24,13 @@
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('guest.home') }}">Home</a>
+                        <a class="nav-link {{ 'active' if request.path == '/capture' else '' }}" aria-current="page" href="{{ url_for('core.home') }}">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('guest.student_cards') }}">Registered Students</a>
+                        <a class="nav-link {{ 'active' if request.path == '/students/album' else '' }}" href="{{ url_for('core.student_cards') }}">Registered Students</a>
+                      </li>
+                        <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == '/nin-update' else '' }}" href="{{ url_for('core.nin_update') }}">NIN Update</a>
                       </li>
                     </ul>
                     <a class="btn btn-warning btn-xs text-white" href="{{ url_for('auth.logout') }}">
