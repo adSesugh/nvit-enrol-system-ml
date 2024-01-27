@@ -19,7 +19,7 @@ from .. import db
 def dashboard():
 
     if current_user.role == 'user' and current_user.username != 'worldbank':
-        return render_template('home.html')
+        return redirect(url_for('core.home'))
 
     students = len(Student.query.all())
     female_count = Student.query.filter_by(gender='Female').count()
@@ -332,6 +332,7 @@ def download_list():
 
 
 @core_bp.route('/nin-update', methods=['GET', 'POST'])
+@login_required
 def nin_update():
     if request.method == 'POST':
         data = request.form.to_dict()
