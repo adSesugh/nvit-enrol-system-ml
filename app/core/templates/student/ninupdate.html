@@ -32,12 +32,13 @@
                                             <div class="form-group">
                                                 <input type="hidden" name="id" value="{{ student.id }}">
                                             </div>
-                                            <div class="form-group d-flex justify-content-between align-content-center">
-                                                <div class="col-2">
-                                                    <label for="nin" class="col-form-label">NIN</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input type="text" class="form-control form-control-sm" name="means_of_id_no" id="nin" value="{{ student.means_of_id_no }}">
+                                            <div class="form-floating">
+                                                <label for="nin" class="col-form-label">NIN</label>
+                                                <div class="col-12 input-group">
+                                                    <input type="text" class="form-control form-control-sm" name="means_of_id_no" id="nin" value="{{ student.means_of_id_no }}" aria-describedby="button-addon2">>
+                                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                                                        <i class="fa fa-plus-circle"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
