@@ -338,6 +338,7 @@ def nin_update():
 
         student = Student.query.filter_by(id=data['id']).first()
         student.means_of_id_no = data['means_of_id_no']
+        student.user_id = current_user.id
         db.session.commit()
 
         return redirect(url_for('core.nin_update'))
