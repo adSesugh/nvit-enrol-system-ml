@@ -20,7 +20,7 @@
             style="border-radius: 20px;background-color:rgb(211,211,211,0.5);margin:0px 10px 0px 10px;height: 700px;">
             <h2 class="btn-color" style="border-radius: 20px 20px 0px 0px;background-color: #0b4c61;color: white;padding: 10px;">Capture Student Data <i class="material-icons">control_point_duplicate</i></h2>
             <div class="row justify-content-md-center">
-                <div class="col-md-auto {% if current_user.role == 'admin' %} col-lg-11 {% else %} col-lg-8 {% endif %} mt-2">
+                <div class="col-md-auto {% if current_user.role == 'admin' %} col-lg-10 {% else %} col-lg-8 {% endif %} mt-2">
                     <form class="upe-mutistep-form" id="Upemultistepsform" action='/add' method="POST" enctype="multipart/form-data">
                         <div class="step-header d-flex mb-4">
                             <span class="steplevel">Personal Information</span>
