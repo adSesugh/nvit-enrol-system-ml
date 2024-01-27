@@ -28,6 +28,8 @@ def dashboard():
         Student.course_of_study).all()
     male_disabled = Student.query.filter_by(disabled='yes', gender='Male').count()
     female_disabled = Student.query.filter_by(disabled='yes', gender='Female').count()
+    employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
+    print(employment_status)
 
     result = db.session.query(
         Student.disabled,

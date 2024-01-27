@@ -1,8 +1,15 @@
 from datetime import datetime
+from enum import Enum
 
 from sqlalchemy.dialects.postgresql import TEXT
 
 from app import db
+
+
+class STATUS(Enum):
+    PENDING = "Pending",
+    APPROVED = "Approved"
+    REJECTED = "Rejected"
 
 
 class Student(db.Model):
@@ -51,6 +58,10 @@ class Student(db.Model):
     terms = db.Column(db.String(10), default=True, nullable=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    record_sealed = db.Column(db.Boolean, default=False)
+    confirm_nin = db.Column(db.Boolean, default=False)
+    reason = db.Column(db.String(100), nullable=True)
+    status = db.Column(db.String(100), default=STATUS.PENDING)
 
     def __repr__(self):
         return "<%r> <%r>" % (self.first_name, self.last_name)

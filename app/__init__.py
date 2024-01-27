@@ -54,4 +54,4 @@ def check_user_role():
                 return redirect(url_for('core.dashboard'))
         elif user_role == 'user':
             if request.endpoint and 'user' not in request.endpoint:
-                return redirect(url_for('guest.capture'))
+                return redirect(url_for('core.capture'))
