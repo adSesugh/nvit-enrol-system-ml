@@ -7,20 +7,20 @@
 {% block title %} NIN Update {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="{% if current_user.role == 'admin' %} container-fluid {% else %} container {% endif %}">
         <form method="post" action="{{ url_for('core.nin_update') }}">
             <div class="row my-2">
                 <h6 class="card-title">Student NIN Update</h6>
             </div>
             <div class="row">
                 {% for student in students %}
-                    <div class="card {% if current_user.role == 'admin' %} col-4 col-sm-4 col-lg-4 {% else %} col-3 col-sm-3 col-lg-3 {% endif %} px-0 g-1">
+                    <div class="card {% if current_user.role == 'admin' %} col-4 col-sm-4 col-lg-4 {% else %} col-3 col-sm-3 col-lg-3 {% endif %} g-1">
                         <div class="row g-0">
-                            <div class="col-md-4 px-0">
+                            <div class="col-md-4">
                                 {% if student.headshot %}
                                     <img src="{{ student.headshot }}" class="img-fluid rounded-start h-100" alt="{{ student.first_name }}">
                                 {% else %}
-                                    <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="img-fluid rounded-start h-100 mx-0 px-0" alt="{{ student.first_name }}">
+                                    <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="img-fluid rounded-start h-100" alt="{{ student.first_name }}">
                                 {% endif %}
                             </div>
                             <div class="col-md-8">
