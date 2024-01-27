@@ -1,0 +1,5 @@
+{% if current_user.role == 'admin' %}
+    {% extends 'base.html' %}
+{% else %}
+    {% extends 'guest_base.html' %}
+{% endif %}
