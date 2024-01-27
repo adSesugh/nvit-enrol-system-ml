@@ -163,8 +163,8 @@ def start():
 @core_bp.route('/add', methods=['GET', 'POST'])
 @login_required
 def add():
-    data = request.form.to_dict()
     if request.method == 'POST':
+        data = request.form.to_dict()
         if data.get('first_name') == '' \
                 or data.get('last_name') == '' \
                 or data.get('email') == '' \
@@ -256,9 +256,9 @@ def add():
         print('Training Model')
         train_model()
 
-        return redirect(url_for('guest.home'))
+        return redirect(url_for('core.home'))
 
-    return redirect(url_for('guest.home'))
+    return redirect(url_for('core.home'))
 
 
 @core_bp.route('/registered-students')
