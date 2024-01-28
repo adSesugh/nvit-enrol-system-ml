@@ -294,9 +294,6 @@ def student_cards():
 @core_bp.route('/download-list', methods=['GET'])
 @login_required
 def download_list():
-    if current_user.role != 'admin' or current_user.username != 'worldbank':
-        return redirect(url_for('core.home'))
-
     students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
     student_list = list()
     for student in students:

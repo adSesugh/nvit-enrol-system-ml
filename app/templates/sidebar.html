@@ -3,7 +3,7 @@
     <div class="user-profile">
         {% if current_user.is_authenticated %}
             <div class="user-image">
-                <img src="{{ url_for('static', filename='images/faces/face28.png') }}" alt="{{ current_user.username }}">
+                <img src="{{ url_for('static', filename='images/faces/face28.png') }}">
             </div>
             <div class="user-name">
                 {{ current_user.full_name }}
@@ -29,7 +29,7 @@
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="" aria-expanded="false" aria-controls="applicants">
+                <a class="nav-link" data-toggle="collapse" href="#applicants" aria-expanded="false" aria-controls="applicants">
                     <i class="icon-head menu-icon"></i>
                     <span class="menu-title">Applicants</span>
                     <i class="menu-arrow"></i>
@@ -45,7 +45,7 @@
         {% endif %}
         {% if current_user.role == 'admin' %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="" aria-expanded="false" aria-controls="settings">
+                <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                     <i class="icon-grid menu-icon"></i>
                     <span class="menu-title">Settings</span>
                     <i class="menu-arrow"></i>
