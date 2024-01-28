@@ -15,7 +15,7 @@
 
   </head>
     <div class="container-fluid mt-2" id="card">
-        <div class="custom-card mt-2" style="--bs-columns: 5;">
+        <div class="{% if current_user.role == 'admin' %} albumcard {% else %} custom-card {% endif %} mt-2" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
             {% if students %}
                 {% for student in students %}
                     <div class="grid card h-100 m-1" style="width: 18rem;">
