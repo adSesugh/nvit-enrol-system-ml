@@ -263,10 +263,6 @@ def add():
 @core_bp.route('/registered-students')
 @login_required
 def registered_students():
-    # if not session.get('logged_in'):
-    #     #students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
-    #
-    # return redirect(url_for('home'))
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
@@ -284,7 +280,7 @@ def student(id):
 @core_bp.route('/students/album', methods=['GET'])
 @login_required
 def student_cards():
-    if current_user.role != 'admin' or current_user.username != 'worldbank':
+    if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
     students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
