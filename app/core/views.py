@@ -7,7 +7,7 @@ from flask_csv import send_csv
 from flask_login import login_required, current_user
 from sqlalchemy import func
 
-from models.student import Student, STATUS
+from models.student import Student
 from utils.common import course_code, train_model, nimgs, extract_faces, datetoday2, totalreg, extract_attendance, \
     add_attendance, identify_face, getallusers, deletefolder
 from . import core_bp
@@ -270,7 +270,7 @@ def registered_students():
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
-    students = Student.query.all()
+    students = Student.query.order_by(Student.id).all()
     return render_template('student/studentlist.html', students=students)
 
 

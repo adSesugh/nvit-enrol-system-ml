@@ -3,7 +3,7 @@
     <div class="user-profile">
         {% if current_user.is_authenticated %}
             <div class="user-image">
-                <img src="{{ url_for('static', filename='images/faces/face28.png') }}">
+                <img src="{{ url_for('static', filename='images/faces/face28.png') }}" alt="{{ current_user.username }}">
             </div>
             <div class="user-name">
                 {{ current_user.full_name }}
@@ -29,12 +29,12 @@
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <a class="nav-link" data-toggle="collapse" href="" aria-expanded="false" aria-controls="applicants">
                     <i class="icon-head menu-icon"></i>
                     <span class="menu-title">Applicants</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="applicants">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ url_for('core.registered_students') }}">Registered</a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ url_for('core.student_cards') }}">Album View</a></li>
@@ -45,12 +45,12 @@
         {% endif %}
         {% if current_user.role == 'admin' %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <a class="nav-link" data-toggle="collapse" href="" aria-expanded="false" aria-controls="settings">
                     <i class="icon-grid menu-icon"></i>
                     <span class="menu-title">Settings</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="settings">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="">Users</a></li>
                         <li class="nav-item"> <a class="nav-link" href="">Courses</a></li>
