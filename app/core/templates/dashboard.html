@@ -170,7 +170,14 @@
                         <table class="table table-striped">
                             <tr>
                                 {% for status in employment_status %}
-                                    <td>{{ status[0] }} - {{ status[1] }}</td>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <div class="my-1">
+                                                <h5 class="card-title">{{ status[0] }}</h5>
+                                            </div>
+                                            <h6 class="card-text">{{ status[1] }}</h6>
+                                        </div>
+                                    </td>
                                 {% endfor %}
                             </tr>
                         </table>
