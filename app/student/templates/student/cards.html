@@ -7,7 +7,7 @@
         <div class="row px-0">
             {% if students %}
                 {% for student in students %}
-                    <div class="card col-3 col-sm-3 col-lg-3 px-0 no-gutters">
+                    <div class="col-3 col-sm-3 col-lg-3 px-0 no-gutters">
                         {% if student.headshot %}
                             <img src="{{ student.headshot }}" class="card-img-top h-50 w-100" alt="{{ student.first_name }}">
                         {% else %}

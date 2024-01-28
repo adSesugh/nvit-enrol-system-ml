@@ -8,6 +8,10 @@
 {% block title %} Student List {% endblock %}
 
 {% block content %}
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
     <div class="container-fluid">
     <div class="row">
         <div class="col" style="border-radius: 20px;padding: 0px;background-color:rgb(211,211,211,0.5);margin:0px 10px 10px 10px;min-height: 600px;">
@@ -24,7 +28,7 @@
                     <button class="btn btn-primary">Download List</button>
                 </a>
             </div>
-            <table style="background-color: white;">
+            <table style="background-color: white;" class="table table-responsive">
                 <thead>
                     <tr>
                         <th>S/No</th>
@@ -64,13 +68,13 @@
                             <td>{{ student.course_of_study }}</td>
                             <td>
                                  {% if student.headshot %}
-                                    <img style="border: 1px; border-radius: 25px" src="{{ student.headshot }}" alt="{{ student.first_name }}" width="80" height="80" />
+                                    <img style="border: 1px; border-radius: 15px" src="{{ student.headshot }}" alt="{{ student.first_name }}" width="150" height="150" />
                                  {% else %}
                                     {{ 'None' }}
                                  {% endif %}
                             </td>
                             <td>
-                                <img style="" src="{{ url_for('static', filename=student.signature) }}" alt="{{ student.first_name }}" height="80" width="80" />
+                                <img style="" src="{{ url_for('static', filename=student.signature) }}" alt="{{ student.first_name }}" height="150" width="150" />
                             </td>
                             <td>{{ student.created }}</td>
                         </tr>

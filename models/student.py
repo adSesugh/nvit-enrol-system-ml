@@ -61,7 +61,7 @@ class Student(db.Model):
     record_sealed = db.Column(db.Boolean, default=False)
     confirm_nin = db.Column(db.Boolean, default=False)
     reason = db.Column(db.String(100), nullable=True)
-    status = db.Column(db.String(100), default=STATUS.PENDING)
+    status = db.Column(db.String(100), nullable=True, default='Pending')
 
     def __repr__(self):
         return "<%r> <%r>" % (self.first_name, self.last_name)

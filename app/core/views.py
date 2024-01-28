@@ -7,7 +7,7 @@ from flask_csv import send_csv
 from flask_login import login_required, current_user
 from sqlalchemy import func
 
-from models.student import Student
+from models.student import Student, STATUS
 from utils.common import course_code, train_model, nimgs, extract_faces, datetoday2, totalreg, extract_attendance, \
     add_attendance, identify_face, getallusers, deletefolder
 from . import core_bp
@@ -29,7 +29,6 @@ def dashboard():
     male_disabled = Student.query.filter_by(disabled='yes', gender='Male').count()
     female_disabled = Student.query.filter_by(disabled='yes', gender='Female').count()
     employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
-    print(employment_status)
 
     result = db.session.query(
         Student.disabled,
@@ -71,7 +70,7 @@ def dashboard():
         'male_disabled': male_disabled
     }
 
-    return render_template('dashboard.html', records=data, stats_data=stats_data)
+    return render_template('dashboard.html', records=data, stats_data=stats_data, employment_status=employment_status)
 
 
 @core_bp.route('/capture')
@@ -193,7 +192,6 @@ def add():
 
         student_exist = Student.query.filter_by(email=data.get('email')).first()  # Student.query.filter_by(email=data.get('email')).first()
         student_phone_number_exist = Student.query.filter_by(phone_number=data.get('phone_number')).first()
-        print(student_exist)
 
         if student_exist or student_phone_number_exist:
             return render_template('home.html', mess="Applicant already exists", student=student_exist)
@@ -221,6 +219,7 @@ def add():
 
         data['terms'] = 'Yes' if data.get('terms') else 'No'
         data['user_id'] = current_user.id
+        data['status'] = 'Pending'
 
         first_name = data['first_name']
         mat = str(student_count).zfill(6)
@@ -342,10 +341,10 @@ def nin_update():
         student = Student.query.filter_by(id=data['id']).first()
         student.means_of_id_no = data['means_of_id_no']
         student.user_id = current_user.id
-        student.confirm_nin = True
+        student.record_sealed = True
         db.session.commit()
 
         return redirect(url_for('core.nin_update'))
 
-    students = Student.query.with_entities(Student.id, Student.student_no, Student.first_name, Student.middle_name, Student.last_name, Student.lga_of_origin, Student.headshot, Student.means_of_id_no, Student.gender).order_by(Student.id).all()
+    students = Student.query.with_entities(Student.id, Student.student_no, Student.first_name, Student.middle_name, Student.last_name, Student.lga_of_origin, Student.headshot, Student.means_of_id_no, Student.gender, Student.record_sealed).filter_by(record_sealed=False).order_by(Student.id).all()
     return render_template('student/ninupdate.html', students=students, title='Student NIN Update')

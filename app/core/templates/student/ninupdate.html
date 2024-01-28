@@ -7,6 +7,11 @@
 {% block title %} NIN Update {% endblock %}
 
 {% block content %}
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
     <div class=" container-fluid">
         <form method="post" action="{{ url_for('core.nin_update') }}">
             <div class="row my-2">
@@ -18,9 +23,9 @@
                         <div class="row {% if current_user.role == 'admin' %} mx-1 {% endif %}">
                             <div class="col-md-4 px-0">
                                 {% if student.headshot %}
-                                    <img src="{{ student.headshot }}" class="img-fluid rounded-start h-100 px-0 mx-0" alt="{{ student.first_name }}">
+                                    <img src="{{ student.headshot }}" class="img-fluid rounded-left h-100 px-0 mx-0" alt="{{ student.first_name }}">
                                 {% else %}
-                                    <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="img-fluid rounded-start h-100 px-0 mx-0" alt="{{ student.first_name }}">
+                                    <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="img-fluid rounded-left h-100 px-0 mx-0" alt="{{ student.first_name }}">
                                 {% endif %}
                             </div>
                             <div class="col-md-8">
@@ -31,19 +36,20 @@
                                         <span class="card-text" style="font-size: 11px"><b>Gender:</b>&nbsp;{{ student.gender|capitalize }}</span>
                                         <span class="card-text" style="font-size: 11px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
                                     </div>
-                                    <form class="form-floating my-0" method="post" action="{{ url_for('core.nin_update') }}">
+                                    <form class="form-floating my-0" method="post" action="{{ url_for('core.nin_update') }}" novalidate>
                                         <div class="d-flex flex-column">
                                             <div class="form-group">
                                                 <input type="hidden" name="id" value="{{ student.id }}">
                                             </div>
                                             <div class="input-group">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control form-control-sm" name="means_of_id_no" id="nin" value="{{ student.means_of_id_no }}" aria-describedby="button-addon2" readonly="{{ student.confirm_nin }}">
-                                                    <label for="nin">NIN</label>
+                                                    <input type="text" maxlength="11" class="form-control form-control-sm" name="means_of_id_no" id="nin" value="{% if student.record_sealed %} XXXXXXXXXXX {% else %} {{ student.means_of_id_no }} {% endif %}" aria-describedby="button-addon2" {% if student.record_sealed %} readonly="true" {%  endif %}>
                                                 </div>
-                                                <button class="btn btn-outline-secondary btn-xs" type="submit" id="button-addon2" disabled="{{ student.confirm_nin }}">
-                                                    <i class="fa fa-plus-circle"></i>
-                                                </button>
+                                                {% if not student.record_sealed %}
+                                                    <button class="btn btn-outline-secondary btn-xs" type="submit" id="button-addon2" {% if student.record_sealed %} disabled="true" {% endif %}>
+                                                        <i class="fa fa-plus-circle"></i>
+                                                    </button>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </form>
