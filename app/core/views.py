@@ -5,7 +5,7 @@ import cv2
 from flask import render_template, redirect, url_for, request, flash
 from flask_csv import send_csv
 from flask_login import login_required, current_user
-from sqlalchemy import func
+from sqlalchemy import func, or_, and_
 
 from models.student import Student
 from utils.common import course_code, train_model, nimgs, extract_faces, datetoday2, totalreg, extract_attendance, \
@@ -21,13 +21,13 @@ def dashboard():
     if current_user.role == 'user' and current_user.username != 'worldbank':
         return redirect(url_for('core.home'))
 
-    students = len(Student.query.all())
-    female_count = Student.query.filter_by(gender='Female').count()
-    male_count = Student.query.filter_by(gender='Male').count()
+    students = len(Student.query.filter((Student.employment_status != 'Employed')).all())
+    female_count = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender == 'Female')).count()
+    male_count = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender == 'Male')).count()
     grouped = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
-        Student.course_of_study).all()
-    male_disabled = Student.query.filter_by(disabled='yes', gender='Male').count()
-    female_disabled = Student.query.filter_by(disabled='yes', gender='Female').count()
+        Student.course_of_study).filter((Student.employment_status != 'Employed')).all()
+    male_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Male') & (Student.employment_status != 'Employed')).count()
+    female_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Female') & (Student.employment_status != 'Employed')).count()
     employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
 
     result = db.session.query(
@@ -39,7 +39,7 @@ def dashboard():
         Student.disabled,
         Student.gender,
         Student.course_of_study
-    ).all()
+    ).filter((Student.employment_status != 'Employed')).all()
 
     # Convert the result to a list of dictionaries
     stats_data = [
@@ -78,9 +78,7 @@ def dashboard():
 def home():
     if current_user.role == 'user':
         return redirect(url_for('core.nin_update'))
-    mats, names, courses, times, l = extract_attendance()
-    return render_template('home.html', mats=mats, names=names, courses=courses, times=times, l=l, totalreg=totalreg(),
-                           datetoday2=datetoday2)
+    return render_template('home.html')
 
 
 @core_bp.route('/attendance')
@@ -283,7 +281,7 @@ def student_cards():
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
-    students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    students = db.session.execute(db.select(Student).filter((Student.employment_status != 'Employed')).order_by(Student.id)).scalars().all()
     return render_template('student/card.html', students=students)
 
 
