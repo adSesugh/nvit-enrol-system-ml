@@ -76,8 +76,8 @@ def dashboard():
 @core_bp.route('/capture')
 @login_required
 def home():
-    if current_user.role == 'user':
-        return redirect(url_for('core.nin_update'))
+    # if current_user.role == 'user':
+    #     return redirect(url_for('core.nin_update'))
     return render_template('home.html')
 
 
@@ -319,7 +319,8 @@ def download_list():
             'guardian_last_name': student.guardian_last_name,
             'guardian_phone_number': student.guardian_phone_number,
             'guardian_email': student.guardian_email,
-            'terms': student.terms
+            'terms': student.terms,
+            'created': student.created
         }
 
         student_list.append(data)
@@ -329,7 +330,7 @@ def download_list():
                      'state_of_origin', 'lga_of_origin', 'dob', 'course_of_study', 'address', 'means_of_id',
                      'means_of_id_upload', 'employment_status', 'level_of_education', 'disabled', 'disability_detail',
                      'emergency_full_name', 'emergency_email', 'emergency_phone_number', 'emergency_address',
-                     'guardian_first_name', 'guardian_last_name', 'guardian_phone_number', 'guardian_email', 'terms'])
+                     'guardian_first_name', 'guardian_last_name', 'guardian_phone_number', 'guardian_email', 'terms', 'created'])
 
 
 @core_bp.route('/nin-update', methods=['GET', 'POST'])
