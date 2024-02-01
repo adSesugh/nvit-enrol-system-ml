@@ -76,8 +76,8 @@ def dashboard():
 @core_bp.route('/capture')
 @login_required
 def home():
-    # if current_user.role == 'user':
-    #     return redirect(url_for('core.nin_update'))
+    if current_user.role == 'user':
+        return redirect(url_for('core.nin_update'))
     return render_template('home.html')
 
 
