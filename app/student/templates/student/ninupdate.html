@@ -32,6 +32,7 @@
                                 <div class="card-body px-2 py-2">
                                     <div><h6 class="card-title text-uppercase" style="font-size: 11px;">{{ student.first_name|capitalize }} {{ student.middle_name|capitalize }} {{ student.last_name|capitalize }}</h6></div>
                                     <p class="card-text my-1" style="font-size: 11px">{{ student.student_no }}</p>
+                                    <p class="card-text my-1" style="font-size: 10px;">{{ student.phone_number }}</p>
                                     <div class="d-flex justify-content-between align-center my-1">
                                         <span class="card-text" style="font-size: 11px"><b>Gender:</b>&nbsp;{{ student.gender|capitalize }}</span>
                                         <span class="card-text" style="font-size: 11px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
