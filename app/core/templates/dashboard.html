@@ -33,6 +33,24 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
+                            <h4 class="card-title">Total Online Applications</h4>
+                            <h4 class="text-dark font-weight-bold mb-2">1511</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Total Onsite Applications</h4>
+                            <h4 class="text-dark font-weight-bold mb-2">767</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row grid-margin">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
                             <h4 class="card-title">Admitted</h4>
                             <h4 class="text-dark font-weight-bold mb-2">{{ records.captured }}</h4>
                         </div>
@@ -77,10 +95,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 my-1">
                     <div class="card">
                         <div class="card-body">
-                            <h2 class="card-title">Online Application Employment Status Distribution</h2>
+                            <h2 class="card-title">In-Person Application Distribution</h2>
                             <table class="table d-lg-table">
                                 <tr>
                                     <th></th>
@@ -88,73 +106,376 @@
                                     <th>Male</th>
                                 </tr>
                                 <tr>
-                                    <td>Employed</td>
-                                    <td>123</td>
-                                    <td>12</td>
+                                    <th>PWD</th>
+                                    <td>0</td>
+                                    <td>1</td>
                                 </tr>
                                 <tr>
-                                    <td>Unemployed</td>
-                                    <td>123</td>
-                                    <td>12</td>
+                                    <th>Normal</th>
+                                    <td>235</td>
+                                    <td>530</td>
                                 </tr>
-                                <tr>
-                                    <td>Self Employed</td>
-                                    <td>123</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td>Others</td>
-                                    <td>123</td>
-                                    <td>12</td>
-                                </tr>
-
                                 <tr>
                                     <th>Total</th>
-                                    <th>123</th>
-                                    <th>12</th>
+                                    <th>235</th>
+                                    <th>531</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 my-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Total Admitted</h2>
+                            <table class="table d-lg-table">
+                                <tr>
+                                    <th></th>
+                                    <th>Female</th>
+                                    <th>Male</th>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td>1</td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td>234</td>
+                                    <td>616</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <th>235</th>
+                                    <th>625</th>
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h2 class="card-title">Online Application Age Distribution</h2>
-                            <table class="table d-lg-table">
-                                <tr>
-                                    <th>Age Range</th>
-                                    <th>Female</th>
-                                    <th>Male</th>
-                                </tr>
-                                <tr>
-                                    <td>15 - 24</td>
-                                    <td>123</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td>25 to 35</td>
-                                    <td>123</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td>36 Above</td>
-                                    <td>123</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <th>123</th>
-                                    <th>12</th>
-                                </tr>
-                            </table>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title" style="font-size: 10px;">Online Application by State</h3>
+                                    <table class="table">
+                                        <tr>
+                                            <th>State</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Abia</td>
+                                            <td>13</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Akwa Ibom</td>
+                                            <td>13</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adamawa</td>
+                                            <td>7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Anambra</td>
+                                            <td>12</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bayelsa</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bauchi</td>
+                                            <td>5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Benue</td>
+                                            <td>1120</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Borno</td>
+                                            <td>8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cross River</td>
+                                            <td>11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Delta</td>
+                                            <td>19</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ebonyi</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Benin</td>
+                                            <td>14</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ekiti</td>
+                                            <td>5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enugu</td>
+                                            <td>30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FCT</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gombe</td>
+                                            <td>6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Imo</td>
+                                            <td>11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jigawa</td>
+                                            <td>19</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kaduna</td>
+                                            <td>17</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kano</td>
+                                            <td>11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Katsina</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kogi</td>
+                                            <td>63</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kwara</td>
+                                            <td>5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kebbi</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lagos</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nasarawa</td>
+                                            <td>9</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Niger</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ogun</td>
+                                            <td>9</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ondo</td>
+                                            <td>16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Osun</td>
+                                            <td>14</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Oyo</td>
+                                            <td>18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Plateau</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rivers</td>
+                                            <td>12</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Taraba</td>
+                                            <td>7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yobe</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Zamfara</td>
+                                            <td>3</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title" style="font-size: 10px;">In-Person Application by State</h3>
+                                    <table class="table">
+                                        <tr>
+                                            <th>State</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Abia</td>
+                                            <td>5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Akwa Ibom</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Anambra</td>
+                                            <td>6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bayelsa</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Benue</td>
+                                            <td>752</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Borno</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cross River</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Delta</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ebonyi</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Benin</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Enugu</td>
+                                            <td>21</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FCT</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gombe</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Imo</td>
+                                            <td>7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jigawa</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kaduna</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kano</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Katsina</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kogi</td>
+                                            <td>17</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kwara</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nasarawa</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Niger</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ogun</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ondo</td>
+                                            <td>6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Osun</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Oyo</td>
+                                            <td>4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Plateau</td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rivers</td>
+                                            <td>1</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-7 d-flex flex-column grid-margin stretch-card">
-             <div class="card my-1 w-100">
+            <div class="card my-1 w-100">
+                <div class="card-body">
+                    <h5 class="card-title">Admitted Applicants Distribution</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Others</h5>
+                                    </div>
+                                    <h6 class="card-text">8</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Self Employed</h5>
+                                    </div>
+                                    <h6 class="card-text">283</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Unemployed</h5>
+                                    </div>
+                                    <h6 class="card-text">569</h6>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card my-1 w-100">
                 <div class="card-body">
                     <h5 class="card-title">Online Applicants Employment Status</h5>
                     <table class="table table-striped">
@@ -195,27 +516,25 @@
                     </table>
                 </div>
             </div>
-            {% if current_user.role == 'admin' %}
-                <div class="card my-1 w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Applicants Employment Status</h5>
-                        <table class="table table-striped">
-                            <tr>
-                                {% for status in employment_status %}
-                                    <td>
-                                        <div class="d-flex flex-column">
-                                            <div class="my-1">
-                                                <h5 class="card-title">{{ status[0] }}</h5>
-                                            </div>
-                                            <h6 class="card-text">{{ status[1] }}</h6>
+            <div class="card my-1 w-100">
+                <div class="card-body">
+                    <h5 class="card-title">In-Person Applicantion Employment Status</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            {% for status in employment_status %}
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="my-1">
+                                            <h5 class="card-title">{{ status[0] }}</h5>
                                         </div>
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                        </table>
-                    </div>
+                                        <h6 class="card-text">{{ status[1] }}</h6>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    </table>
                 </div>
-            {% endif %}
+            </div>
             <div class="card my-1 w-100">
                 <div class="card-body">
                     <h5 class="card-title">Online Applicants Education Level</h5>
@@ -224,7 +543,7 @@
                             <td>
                                 <div class="d-flex flex-column">
                                     <div class="my-1">
-                                        <h5 class="card-title">B.Sc</h5>
+                                        <h5 class="card-title">Bachelor degree</h5>
                                     </div>
                                     <h6 class="card-text">694</h6>
                                 </div>
@@ -251,6 +570,136 @@
                                         <h5 class="card-title">High Schoo</h5>
                                     </div>
                                     <h6 class="card-text">244</h6>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card my-1 w-100">
+                <div class="card-body">
+                    <h5 class="card-title">In-Person Application Education Level</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Bachelor degree</h5>
+                                    </div>
+                                    <h6 class="card-text">293</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">HND</h5>
+                                    </div>
+                                    <h6 class="card-text">115</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">NCE</h5>
+                                    </div>
+                                    <h6 class="card-text">64</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">ND</h5>
+                                    </div>
+                                    <h6 class="card-text">68</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Masters</h5>
+                                    </div>
+                                    <h6 class="card-text">24</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">PGD</h5>
+                                    </div>
+                                    <h6 class="card-text">14</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">PhD</h5>
+                                    </div>
+                                    <h6 class="card-text">1</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">SSCE</h5>
+                                    </div>
+                                    <h6 class="card-text">280</h6>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card my-1 w-100">
+                <div class="card-body">
+                    <h5 class="card-title">Admitted Applicants Distribution against Courses</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">ITSO</h5>
+                                    </div>
+                                    <h6 class="card-text">77</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">AIML</h5>
+                                    </div>
+                                    <h6 class="card-text">69</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">FSPD</h5>
+                                    </div>
+                                    <h6 class="card-text">226</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">ACDE</h5>
+                                    </div>
+                                    <h6 class="card-text">128</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">ADSE</h5>
+                                    </div>
+                                    <h6 class="card-text">186</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">UIUX</h5>
+                                    </div>
+                                    <h6 class="card-text">174</h6>
                                 </div>
                             </td>
                         </tr>
