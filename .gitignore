@@ -110,3 +110,4 @@ venv.bak/
 migrations
 seed.py
 /app/Attendance
+/core/templates/bak_dashboard.html

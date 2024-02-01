@@ -151,9 +151,111 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Female Admitted</h4>
+                            <table class="table d-lg-table">
+                                <tr>
+                                    <th>Status</th>
+                                    <td align="center">Count</td>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td align="center">{{ records.female_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td align="center">{{ records.female_count - records.female_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td align="center"><b>{{ records.female_count }}</b></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Male Admitted</h4>
+                            <table class="table d-lg-table">
+                                <tr>
+                                    <th>Status</th>
+                                    <td align="center">Count</td>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td align="center">{{ records.male_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td align="center">{{ records.male_count - records.male_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td align="center"><b>{{ records.male_count }}</b></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xl-7 d-flex flex-column grid-margin stretch-card">
+            <div class="row grid-margin">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Female Applicants</h4>
+                            <table class="table d-lg-table">
+                                <tr>
+                                    <th>Status</th>
+                                    <td align="center">Count</td>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td align="center">{{ records.female_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td align="center">{{ records.female_count - records.female_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td align="center"><b>{{ records.female_count }}</b></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Male Applicants</h4>
+                            <table class="table d-lg-table">
+                                <tr>
+                                    <th>Status</th>
+                                    <td align="center">Count</td>
+                                </tr>
+                                <tr>
+                                    <th>PWD</th>
+                                    <td align="center">{{ records.male_disabled }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td align="center">{{ 1615 - records.female_count }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td align="center"><b>{{ records.male_disabled + (1615 - records.female_count) }}</b></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
              <div class="card my-1 w-100">
                 <div class="card-body">
                     <h5 class="card-title">Online Applicants Employment Status</h5>
@@ -216,47 +318,6 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="card my-1 w-100">
-                <div class="card-body">
-                    <h5 class="card-title">Online Applicants Education Level</h5>
-                    <table class="table table-striped">
-                        <tr>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">B.Sc</h5>
-                                    </div>
-                                    <h6 class="card-text">694</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">Diploma/Others</h5>
-                                    </div>
-                                    <h6 class="card-text">294</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">Doctorate (PhD)</h5>
-                                    </div>
-                                    <h6 class="card-text">5</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">High Schoo</h5>
-                                    </div>
-                                    <h6 class="card-text">244</h6>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
             <div class="row grid-margin">
                 <div class="col-12 d-flex justify-content-center align-content-center">
                     <div class="card w-100 p-4">
