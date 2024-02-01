@@ -521,16 +521,22 @@
                     <h5 class="card-title">In-Person Applicantion Employment Status</h5>
                     <table class="table table-striped">
                         <tr>
-                            {% for status in employment_status %}
-                                <td>
-                                    <div class="d-flex flex-column">
-                                        <div class="my-1">
-                                            <h5 class="card-title">{{ status[0] }}</h5>
-                                        </div>
-                                        <h6 class="card-text">{{ status[1] }}</h6>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Employed</h5>
                                     </div>
-                                </td>
-                            {% endfor %}
+                                    <h6 class="card-text">27</h6>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="my-1">
+                                        <h5 class="card-title">Unemployed</h5>
+                                    </div>
+                                    <h6 class="card-text">740</h6>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
