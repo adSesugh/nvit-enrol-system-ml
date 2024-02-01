@@ -340,6 +340,7 @@ def nin_update():
         data = request.form.to_dict()
 
         student = Student.query.filter_by(id=data['id']).first()
+        student.full_name = data['full_name']
         student.means_of_id_no = data['means_of_id_no']
         student.user_id = current_user.id
         student.record_sealed = True
