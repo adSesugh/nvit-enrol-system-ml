@@ -27,7 +27,7 @@ def register():
 @student_bp.route("/album")
 @login_required
 def album_list():
-    students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    students = db.session.execute(db.select(Student).order_by(Student.id)).filter((Student.employment_status != 'Employed')).scalars().all()
     # students = Student.query.with_entities(
     #     Student.id,
     #     Student.means_of_id_no,
