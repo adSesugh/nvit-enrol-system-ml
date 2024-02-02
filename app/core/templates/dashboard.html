@@ -779,11 +779,17 @@
                     </table>
                 </div>
             </div>
-            <div class="row grid-margin">
-                <div class="col-12 d-flex justify-content-center align-content-center">
-                    <div class="card w-100 p-4">
-                        <h4 class="card-title">Disabled and non-disabled Distribution against courses</h4>
-                        <canvas id="femaleMaleChart" height="250" class="mt-3"></canvas>
+            <div class="row grid-margin h-50 d-flex flex-grow flex-row justify-content-center align-content-center">
+                <div class="col-lg-12">
+                    <div class="card p-5 mb-3 d-flex flex-row" style="height: 350px;">
+                        <div class="col-lg-6">
+                            <h4 class="card-title">Age Range of Admitted Distribution</h4>
+                            <canvas id="demographyChart"></canvas>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4 class="card-title">Disabled & non-disabled Distribution against courses</h4>
+                            <canvas id="femaleMaleChart" height="250" class="my-4"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -823,15 +829,33 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script>
-        const ctx = document.getElementById('coursesChart');
+        const ctx = document.getElementById('coursesChart')
         const notAdmittedCtx = document.getElementById('notCoursesChart')
-        const ctx_disabled = document.getElementById('femaleMaleChart');
+        const ctx_disabled = document.getElementById('femaleMaleChart')
+        const demographyChart = document.getElementById('demographyChart')
 
         var labels = {{ records.stats.labels|tojson }};
         var course_data = {{ records.stats.data|tojson }};
 
         var not_admitted_labels = {{ records.stats.labels|tojson }};
         var not_admitted_course_data = {{ records.stats.not_admitted_data|tojson }};
+
+        new Chart(demographyChart, {
+            type: 'pie',
+            data: {
+                labels: ['15 - 24 yrs', '25 - 35 yrs', '36 above'],
+                datasets: [{
+                    label: 'Age Range',
+                    data: [250, 407, 203],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    hoverOffset: 4
+                }]
+            }
+        })
 
         new Chart(notAdmittedCtx, {
             type: 'bar',
