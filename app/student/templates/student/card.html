@@ -1,4 +1,4 @@
-{% if current_user.role == 'admin' %}
+{% if current_user.role == 'admin' or current_user.username == 'worldbank' %}
     {% extends 'base.html' %}
 {% else %}
     {% extends 'guest_base.html' %}
