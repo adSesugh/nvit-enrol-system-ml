@@ -12,14 +12,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-    <div class=" container-fluid">
+    <div class="{% if current_user.role == 'admin' %} container {% else %} container-fluid {% endif %}">
         <form method="post" action="{{ url_for('core.nin_update') }}">
             <div class="row my-2">
-                <h6 class="card-title">Student NIN Update</h6>
+                <h6 class="card-title">Student NIN Update {{ total }} left</h6>
             </div>
             <div class="row justify-content-center">
                 {% for student in students %}
-                    <div class="card {% if current_user.role == 'admin' %} col-4 col-sm-4 col-lg-4 {% else %} col-3 col-sm-3 col-lg-3 {% endif %} m-1 px-0" style="width: {% if current_user.role == 'admin' %} 16rem {% else %} 22rem {% endif %};">
+                    <div class="card {% if current_user.role == 'admin' %} col-3 col-sm-3 col-lg-3 {% else %} col-3 col-sm-3 col-lg-3 {% endif %} m-1 px-0" style="width: {% if current_user.role == 'admin' %} 22rem {% else %} 22rem {% endif %};">
                         <div class="row {% if current_user.role == 'admin' %} mx-1 {% endif %}">
                             <div class="col-md-4 px-0">
                                 {% if student.headshot %}
@@ -43,11 +43,11 @@
                                                 <input type="hidden" name="id" value="{{ student.id }}">
                                             </div>
                                             <div class="input-group">
-                                                <div class="form-floating">
+                                                <div class="col-9">
                                                     <input type="text" maxlength="11" class="form-control form-control-sm" name="means_of_id_no" id="nin" value="{% if student.record_sealed %} XXXXXXXXXXX {% else %} {{ student.means_of_id_no }} {% endif %}" aria-describedby="button-addon2" {% if student.record_sealed %} readonly="true" {%  endif %}>
                                                 </div>
                                                 {% if not student.record_sealed %}
-                                                    <button class="btn btn-outline-secondary btn-xs" type="submit" id="button-addon2" {% if student.record_sealed %} disabled="true" {% endif %}>
+                                                    <button class="btn btn-outline-secondary btn-xs col-3" type="submit" id="button-addon2" {% if student.record_sealed %} disabled="true" {% endif %}>
                                                         <i class="fa fa-plus-circle"></i>
                                                     </button>
                                                 {% endif %}

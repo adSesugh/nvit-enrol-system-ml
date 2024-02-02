@@ -359,5 +359,7 @@ def nin_update():
 
         return redirect(url_for('core.nin_update'))
 
-    students = Student.query.with_entities(Student.id, Student.student_no, Student.phone_number, Student.first_name, Student.middle_name, Student.last_name, Student.lga_of_origin, Student.headshot, Student.means_of_id_no, Student.gender, Student.record_sealed).filter(or_(Student.record_sealed.is_(False), Student.record_sealed.is_(None))).order_by(Student.id).all()
-    return render_template('student/ninupdate.html', students=students, title='Student NIN Update')
+    students = Student.query.with_entities(Student.id, Student.student_no, Student.phone_number, Student.first_name, Student.middle_name, Student.last_name, Student.lga_of_origin, Student.headshot, Student.means_of_id_no, Student.gender, Student.record_sealed).filter(or_(Student.record_sealed.is_(False), Student.record_sealed.is_(None))).order_by(Student.record_sealed).all()
+    total_students = len(students)
+    
+    return render_template('student/ninupdate.html', students=students, total=total_students, title='Student NIN Update')
