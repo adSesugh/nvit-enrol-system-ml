@@ -841,7 +841,7 @@
         var not_admitted_course_data = {{ records.stats.not_admitted_data|tojson }};
 
         new Chart(demographyChart, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['15 - 24 yrs', '25 - 35 yrs', '36 above'],
                 datasets: [{
