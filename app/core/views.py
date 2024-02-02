@@ -26,6 +26,8 @@ def dashboard():
     male_count = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender == 'Male')).count()
     grouped = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
         Student.course_of_study).filter((Student.employment_status != 'Employed')).all()
+    not_admitted = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
+        Student.course_of_study).filter((Student.employment_status == 'Employed')).all()
     male_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Male') & (Student.employment_status != 'Employed')).count()
     female_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Female') & (Student.employment_status != 'Employed')).count()
     employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
@@ -50,19 +52,29 @@ def dashboard():
     labels = list()
     values = list()
     courses = list()
+    
+    not_admitted_values = list()
+    not_admitted_courses = list()
 
     for course in grouped:
         code = course_code(course[0])
         labels.append(code)
         values.append(course[1])
         courses.append(course[0])
+        
+    for cx in not_admitted:
+        code = course_code(cx[0])
+        not_admitted_values.append(cx[1])
+        not_admitted_courses.append(cx[0])
 
     data = {
         'captured': students,
         'stats': {
             'labels': labels,
             'data': values,
-            'courses': courses
+            'courses': courses,
+            'not_admitted_data': not_admitted_values,
+            'not_admitted_courses': not_admitted_courses
         },
         'female_count': female_count,
         'male_count': male_count,
