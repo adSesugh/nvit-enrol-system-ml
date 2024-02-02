@@ -44,5 +44,5 @@ def album_list():
     #     Student.headshot
     # ).order_by(Student.id).all()
     return render_template(
-        "student/cards.html", students=students, title="Student Album"
+        "student/card.html", students=students, title="Student Album"
     )
