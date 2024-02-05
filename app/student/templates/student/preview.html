@@ -1,0 +1,80 @@
+{% extends 'guest_base.html' %}
+
+{% block title %} Student Album {% endblock %}
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <div class="container-fluid mt-2" id="card">
+        <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %} mt-2" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
+            {% if students %}
+                {% for student in students %}
+                    <div class="grid card h-100 m-1" style="width: 18rem;">
+                        {% if student.headshot %}
+                            <img src="{{ student.headshot }}" class="card-img-top h-50" alt="{{ student.first_name }}">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top h-50" alt="{{ student.first_name }}">
+                        {% endif %}
+                        <div class="card-body px-2">
+                            <div class="row no-gutters mb-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner's Name:&nbsp;</div>
+                                <div class="col-8"><h6 class="card-text" style="font-size: 12px;">{{ student.full_name()|upper }}</h6></div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner ID:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
+                            </div>
+                            <hr class="my-1" />
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Gender:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.gender|capitalize }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.phone_number|capitalize }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.email}}</div>
+                            </div>
+                            <hr class="my-1" />
+                            <div class="d-flex justify-content-between align-center">
+                                <span class="card-text" style="font-size: 12px"><b>State:</b>&nbsp;{{ student.state_of_origin|capitalize }}</span>
+                                <span class="card-text" style="font-size: 12px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
+                            </div>
+                            <div class="my-1">
+                                {% if student.means_of_id_no %}
+                                    <span class="card-text" style="font-size: 12px;"><b>NIN:</b> {{ student.means_of_id_no }}</span>
+                                {% else %}
+                                    <span class="card-text" style="font-size: 12px;">Pending</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-sm-12 d-flex justify-content-center align-center">
+                    <h5>No Record found!</h5>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+{% endblock %}

@@ -103,6 +103,33 @@
             position: relative;
         }
 
+        @page {
+          size: A4 landscape;
+        }
+
+        @page :left {
+          margin-left: 3cm;
+        }
+
+        @page :right {
+          margin-left: 4cm;
+        }
+
+        @page:right{
+          @bottom-right {
+            content: counter(page);
+          }
+        }
+
+        @page:left{
+          @bottom-left {
+            content: "Page " counter(page) " of " counter(pages);
+          }
+        }
+
+
+
+
         #card {
             visibility: visible;
             position: absolute;
