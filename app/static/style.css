@@ -104,7 +104,8 @@
         }
 
         @page {
-          size: A4 landscape;
+            size: A4 landscape;
+            zoom: 75%;
         }
 
         @page :left {

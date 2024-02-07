@@ -296,6 +296,7 @@ def student_cards():
     students = db.session.execute(db.select(Student).filter((Student.employment_status != 'Employed')).order_by(Student.id)).scalars().all()
     return render_template('student/card.html', students=students)
 
+
 @core_bp.route('/students/album-preview', methods=['GET'])
 @login_required
 def album_preview():
@@ -370,6 +371,5 @@ def nin_update():
 
     students = Student.query.with_entities(Student.id, Student.student_no, Student.phone_number, Student.first_name, Student.middle_name, Student.last_name, Student.lga_of_origin, Student.headshot, Student.means_of_id_no, Student.gender, Student.record_sealed).filter(and_(Student.employment_status != 'Employed', or_(Student.record_sealed.is_(False), Student.record_sealed.is_(None)))).order_by(Student.record_sealed).all()
     total_students = len(students)
-    print(total_students)
     
     return render_template('student/ninupdate.html', students=students, total=total_students, title='Student NIN Update')
