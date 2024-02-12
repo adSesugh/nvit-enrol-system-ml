@@ -23,13 +23,13 @@
         <ul class="navbar-nav navbar-nav-right">
             {% if request.path == '/students/album' %}
                 <li class="nav-item dropdown d-lg-flex d-none">
-                    <a href="{{ url_for('core.album_preview') }}" target="_blank" class="btn btn-info btn-xs font-weight-bold">
+                    <a href="{{ url_for('core.album_preview') }}" target="_blank" class="btn btn-primary btn-xs font-weight-bold">
                         <i class="fa fa-print"></i>&nbsp;Print
                     </a>
                 </li>
             {% elif current_user.username != 'worldbank' %}
                 <li class="nav-item dropdown d-lg-flex d-none">
-                    <a href="{{ url_for('core.home') }}" class="btn btn-info font-weight-bold">+ Capture New</a>
+                    <a href="{{ url_for('core.home') }}" class="btn btn-primary font-weight-bold">+ Capture New</a>
                 </li>
             {% endif %}
             <li class="nav-item dropdown d-flex mr-4 ">

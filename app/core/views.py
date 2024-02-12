@@ -31,6 +31,11 @@ def dashboard():
     male_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Male') & (Student.employment_status != 'Employed')).count()
     female_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Female') & (Student.employment_status != 'Employed')).count()
     employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
+    admitted = Student.query.with_entities(Student.employment_status, func.count(Student.course_of_study)).group_by(
+        Student.employment_status).filter((Student.employment_status != 'Employed')).all()
+    total_count = Student.query.count()
+
+    print(admitted)
 
     result = db.session.query(
         Student.disabled,
@@ -48,6 +53,8 @@ def dashboard():
         {'disabled': row[0], 'gender': row[1], 'course_of_study': course_code(row[2]), 'count': row[3]}
         for row in result
     ]
+
+    admitted_applicants = [{}]
 
     labels = list()
     values = list()
@@ -79,7 +86,8 @@ def dashboard():
         'female_count': female_count,
         'male_count': male_count,
         'female_disabled': female_disabled,
-        'male_disabled': male_disabled
+        'male_disabled': male_disabled,
+        'total_count': total_count
     }
 
     return render_template('dashboard.html', records=data, stats_data=stats_data, employment_status=employment_status)
@@ -88,8 +96,8 @@ def dashboard():
 @core_bp.route('/capture')
 @login_required
 def home():
-    if current_user.role == 'user':
-        return redirect(url_for('core.nin_update'))
+    # if current_user.role == 'user':
+    #     return redirect(url_for('core.nin_update'))
     return render_template('home.html')
 
 
@@ -276,7 +284,7 @@ def registered_students():
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
-    students = Student.query.order_by(Student.id).all()
+    students = Student.query.filter(Student.employment_status!='Employed').order_by(Student.id).all()
     return render_template('student/studentlist.html', students=students)
 
 

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block title %} Student Attendance {% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('student.attendance_upload') }}">Post Attendance</a>
+{% endblock %}

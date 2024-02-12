@@ -78,7 +78,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Biometric Captured</h4>
-                            <h4 class="text-dark font-weight-bold mb-2">1081</h4>
+                            <h4 class="text-dark font-weight-bold mb-2">{{ records.total_count }}</h4>
                         </div>
                     </div>
                 </div>
@@ -154,18 +154,18 @@
                                 </tr>
                                 <tr>
                                     <th>PWD</th>
-                                    <td>2</td>
-                                    <td>9</td>
+                                    <td>{{ records.female_disabled }}</td>
+                                    <td>{{ records.male_disabled }}</td>
                                 </tr>
                                 <tr>
                                     <th>Normal</th>
-                                    <td>234</td>
-                                    <td>616</td>
+                                    <td>{{ records.female_count - records.female_disabled}}</td>
+                                    <td>{{ records.male_count - records.male_disabled }}</td>
                                 </tr>
                                 <tr>
                                     <th>Total</th>
-                                    <th>235</th>
-                                    <th>625</th>
+                                    <th>{{ records.female_count  }}</th>
+                                    <th>{{ records.male_count }}</th>
                                 </tr>
                             </table>
                         </div>

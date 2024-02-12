@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Student Attendance {% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" action="{{ url_for('student.attendance_upload') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.upload.label }}
+             {{ form.upload(class="form-control form-control-lg border-left-0", placeholder="Upload attendance") }}
+                    {% for error in form.upload.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

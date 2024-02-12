@@ -42,6 +42,18 @@
                     </ul>
                 </div>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#attendance" aria-expanded="false" aria-controls="attendance">
+                    <i class="icon-watch menu-icon"></i>
+                    <span class="menu-title">Attendance</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="attendance">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('student.attendance_list') }}">List</a></li>
+                    </ul>
+                </div>
+            </li>
         {% endif %}
         {% if current_user.role == 'admin' %}
             <li class="nav-item">

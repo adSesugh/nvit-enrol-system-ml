@@ -103,6 +103,10 @@
             position: relative;
         }
 
+        #print {
+            display: none;
+        }
+
         @page {
             size: A4 landscape;
             zoom: 75%;
