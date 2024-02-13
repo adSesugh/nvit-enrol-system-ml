@@ -107,9 +107,24 @@
             display: none;
         }
 
+        .albumcard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            width: 100vw;
+        }
+
+        #headshot {
+            height: 35%;
+        }
+
+        #photoCard {
+            height: 90%;
+            width: 16rem;
+        }
+
         @page {
             size: A4 landscape;
-            zoom: 75%;
         }
 
         @page :left {
@@ -131,9 +146,6 @@
             content: "Page " counter(page) " of " counter(pages);
           }
         }
-
-
-
 
         #card {
             visibility: visible;
