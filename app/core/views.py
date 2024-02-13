@@ -59,8 +59,6 @@ def dashboard():
         for row in result_admitted
     ]
 
-    print(admitted_courses)
-
     admitted_applicants = [{}]
 
     labels = list()
