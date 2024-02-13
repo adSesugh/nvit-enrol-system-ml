@@ -121,7 +121,8 @@
             background-color: white;
             border-radius: 5px;
             margin-right: 8px;
-            box-shadow: whitesmoke;
+            box-shadow: 5px 10px whitesmoke;
+            margin-bottom: 3px;
         }
 
         @page {
@@ -170,3 +171,12 @@
         column-gap: 2px;
         row-gap: 2px;
     }
+
+    #photoCard {
+            width: 16rem;
+            background-color: white;
+            border-radius: 5px;
+            margin-right: 8px;
+            box-shadow: 5px 10px whitesmoke;
+            margin-bottom: 8px;
+        }
