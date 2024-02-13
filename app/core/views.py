@@ -87,7 +87,8 @@ def dashboard():
         'male_count': male_count,
         'female_disabled': female_disabled,
         'male_disabled': male_disabled,
-        'total_count': total_count
+        'total_count': total_count,
+        'admitted': admitted
     }
 
     return render_template('dashboard.html', records=data, stats_data=stats_data, employment_status=employment_status)

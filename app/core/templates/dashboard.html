@@ -465,30 +465,16 @@
                     <h5 class="card-title">Admitted Applicants Distribution</h5>
                     <table class="table table-striped">
                         <tr>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">Others</h5>
+                            {% for data in records.admitted %}
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="my-1">
+                                            <h5 class="card-title">{{ data[0] }}</h5>
+                                        </div>
+                                        <h6 class="card-text">{{ data[1] }}</h6>
                                     </div>
-                                    <h6 class="card-text">8</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">Self Employed</h5>
-                                    </div>
-                                    <h6 class="card-text">283</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">Unemployed</h5>
-                                    </div>
-                                    <h6 class="card-text">569</h6>
-                                </div>
-                            </td>
+                                </td>
+                            {% endfor %}
                         </tr>
                     </table>
                 </div>
