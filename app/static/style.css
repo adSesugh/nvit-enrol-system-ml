@@ -110,17 +110,18 @@
         .albumcard {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            width: 100vw;
         }
 
         #headshot {
-            height: 35%;
+            height: 40%;
         }
 
         #photoCard {
-            height: 90%;
-            width: 16rem;
+            width: 15rem;
+            background-color: white;
+            border-radius: 5px;
+            margin-right: 8px;
+            box-shadow: whitesmoke;
         }
 
         @page {
@@ -160,7 +161,7 @@
     .custom-card {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        row-gap: 5px;
+        gap: 3px;
     }
 
     .albumcard {

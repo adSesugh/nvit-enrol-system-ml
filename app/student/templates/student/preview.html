@@ -3,7 +3,7 @@
 {% block title %} Student Album {% endblock %}
 
 {% block content %}
-    <div class="container-fluid" id="card">
+    <div class="container-fluid" id="card" style="width: 100vw;">
         <div class="row mb-3" style="height: 45%;">
             <div class="card position-relative">
                 <div class="position-absolute float-right" id="print" style="top: 20px; right: 20px;">
@@ -18,10 +18,10 @@
                 </div>
             </div>
         </div>
-        <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %} pr-2" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
+        <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %}" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
             {% if students %}
                 {% for student in students %}
-                    <div class="card" id="photoCard">
+                    <div class="" id="photoCard">
                         {% if student.headshot %}
                             <img id="headshot" src="{{ student.headshot }}" class="card-img-top {{ current_user.role == 'admin' }}" alt="{{ student.first_name }}" {% if current_user.role != 'admin' %} style="height: 40%;" {% endif %}>
                         {% else %}
@@ -29,29 +29,29 @@
                         {% endif %}
                         <div class="card-body px-2">
                             <div class="row no-gutters mb-1">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Name:&nbsp;</div>
-                                <div class="col-8"><h6 class="card-text" style="font-size: 12px;">{{ student.full_name()|upper }}</h6></div>
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Name:&nbsp;</div>
+                                <div class="col-9"><h6 class="card-text" style="font-size: 12px;">{{ student.full_name()|upper }}</h6></div>
                             </div>
                             <div class="row no-gutters">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Learner ID:&nbsp;</div>
-                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">UID:&nbsp;</div>
+                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
                             </div>
                             <hr class="my-1" />
                             <div class="row no-gutters">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
-                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
+                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
                             </div>
                             <div class="row no-gutters mb-1">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Gender:&nbsp;</div>
-                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.gender|capitalize }}</div>
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Gender:&nbsp;</div>
+                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.gender|capitalize }}</div>
                             </div>
                             <div class="row no-gutters mb-1">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
-                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.phone_number|capitalize }}</div>
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
+                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.phone_number|capitalize }}</div>
                             </div>
                             <div class="row no-gutters">
-                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
-                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.email}}</div>
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
+                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.email}}</div>
                             </div>
                             <hr class="my-1" />
                             <div class="d-flex justify-content-between align-center">
