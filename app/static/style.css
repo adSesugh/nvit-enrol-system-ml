@@ -110,7 +110,8 @@
         .albumcard {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            margin: 0px;
+            grid-template-rows: repeat(2, 1fr);
+            row-gap: 5px;
         }
 
         #headshot {
@@ -123,7 +124,7 @@
             border-radius: 5px;
             margin-right: 5px;
             box-shadow: 5px 5px whitesmoke;
-            height: 88%;
+            height: 97%;
         }
 
         @page {

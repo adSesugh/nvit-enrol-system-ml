@@ -105,7 +105,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-/app/static/faces/
+/app/static/faces/Sesugh*
 /app/static/uploads/
 migrations
 seed.py
