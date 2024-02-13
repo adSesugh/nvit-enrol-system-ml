@@ -28,30 +28,30 @@
                             <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top h-50" alt="{{ student.first_name }}">
                         {% endif %}
                         <div class="card-body px-2">
-                            <div class="row no-gutters mb-1">
-                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Name:&nbsp;</div>
-                                <div class="col-9"><h6 class="card-text" style="font-size: 12px;">{{ student.full_name()|upper }}</h6></div>
+                            <div class="row no-gutters mb-1 mt-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Name:&nbsp;</div>
+                                <div class="col-8"><h6 class="card-text" style="font-size: 12px;">{{ student.full_name()|upper }}</h6></div>
                             </div>
                             <div class="row no-gutters">
-                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">UID:&nbsp;</div>
-                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">UID:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.student_no }}</div>
                             </div>
                             <hr class="my-1" />
                             <div class="row no-gutters">
-                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
-                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course of Study:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.course_of_study }}</div>
                             </div>
                             <div class="row no-gutters mb-1">
-                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Gender:&nbsp;</div>
-                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.gender|capitalize }}</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Gender:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.gender|capitalize }}</div>
                             </div>
                             <div class="row no-gutters mb-1">
-                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
-                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.phone_number|capitalize }}</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.phone_number|capitalize }}</div>
                             </div>
                             <div class="row no-gutters">
-                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
-                                <div class="col-9 card-text" style="font-size: 12px;">{{ student.email}}</div>
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 10px;">{{ student.email}}</div>
                             </div>
                             <hr class="my-1" />
                             <div class="d-flex justify-content-between align-center">
