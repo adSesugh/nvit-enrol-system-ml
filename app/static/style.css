@@ -154,5 +154,6 @@
     .albumcard {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        row-gap: 5px;
+        column-gap: 2px;
+        row-gap: 2px;
     }
