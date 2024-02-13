@@ -21,7 +21,7 @@
         <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %}" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
             {% if students %}
                 {% for student in students %}
-                    <div class="" id="photoCard">
+                    <div id="photoCard">
                         {% if student.headshot %}
                             <img id="headshot" src="{{ student.headshot }}" class="card-img-top {{ current_user.role == 'admin' }}" alt="{{ student.first_name }}" {% if current_user.role != 'admin' %} style="height: 40%;" {% endif %}>
                         {% else %}
@@ -58,7 +58,7 @@
                                 <span class="card-text" style="font-size: 12px"><b>State:</b>&nbsp;{{ student.state_of_origin|capitalize }}</span>
                                 <span class="card-text" style="font-size: 12px"><b>LGA:</b>&nbsp;{{ student.lga_of_origin|capitalize }}</span>
                             </div>
-                            <div class="mb-1">
+                            <div>
                                 {% if student.means_of_id_no %}
                                     <span class="card-text" style="font-size: 12px;"><b>NIN:</b> {{ student.means_of_id_no }}</span>
                                 {% else %}

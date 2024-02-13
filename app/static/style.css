@@ -110,6 +110,7 @@
         .albumcard {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            margin: 0px;
         }
 
         #headshot {
@@ -120,10 +121,9 @@
             width: 16rem;
             background-color: white;
             border-radius: 5px;
-            margin-right: 8px;
-            box-shadow: 5px 10px whitesmoke;
-            margin-bottom: 3px;
-            height: 90%;
+            margin-right: 5px;
+            box-shadow: 5px 5px whitesmoke;
+            height: 88%;
         }
 
         @page {
@@ -152,12 +152,3 @@
         column-gap: 2px;
         row-gap: 2px;
     }
-
-    #photoCard {
-            width: 16rem;
-            background-color: white;
-            border-radius: 5px;
-            margin-right: 8px;
-            box-shadow: 5px 10px whitesmoke;
-            margin-bottom: 5px;
-        }
