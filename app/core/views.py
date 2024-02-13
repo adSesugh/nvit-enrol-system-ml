@@ -33,20 +33,13 @@ def dashboard():
     employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
     admitted = Student.query.with_entities(Student.employment_status, func.count(Student.course_of_study)).group_by(
         Student.employment_status).filter((Student.employment_status != 'Employed')).all()
+    result_admitted = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
+        Student.course_of_study).filter((Student.employment_status != 'Employed')).all()
     total_count = Student.query.count()
 
     result = db.session.query(
         Student.disabled,
         Student.gender,
-        Student.course_of_study,
-        func.count().label('count')
-    ).group_by(
-        Student.disabled,
-        Student.gender,
-        Student.course_of_study
-    ).filter((Student.employment_status != 'Employed')).all()
-
-    result_courses = db.session.query(
         Student.course_of_study,
         func.count().label('count')
     ).group_by(
@@ -63,8 +56,10 @@ def dashboard():
 
     admitted_courses = [
         {'course': course_code(row[0]), 'count': row[1]}
-        for row in result_courses
+        for row in result_admitted
     ]
+
+    print(admitted_courses)
 
     admitted_applicants = [{}]
 
