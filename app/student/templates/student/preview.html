@@ -19,7 +19,7 @@
         <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %} mt-5" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
             {% if students %}
                 {% for student in students %}
-                    <div class="grid card {% if 'album-preview' in request.path %} h-75 {% else %} h-100 {% endif %} m-1" style="width: 18rem;">
+                    <div class="grid card h-100 m-1" style="width: 18rem;">
                         {% if student.headshot %}
                             <img src="{{ student.headshot }}" class="card-img-top {{ current_user.role == 'admin' }}" alt="{{ student.first_name }}" {% if current_user.role != 'admin' %} style="height: 40%;" {% endif %}>
                         {% else %}
