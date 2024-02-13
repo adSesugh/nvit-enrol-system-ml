@@ -664,54 +664,16 @@
                     <h5 class="card-title">Admitted Applicants Distribution against Courses</h5>
                     <table class="table table-striped">
                         <tr>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">ITSO</h5>
+                            {% for item in records.admitted_courses %}
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="my-1">
+                                            <h5 class="card-title">{{ item.course }}</h5>
+                                        </div>
+                                        <h6 class="card-text">{{ item.count }}</h6>
                                     </div>
-                                    <h6 class="card-text">77</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">AIML</h5>
-                                    </div>
-                                    <h6 class="card-text">69</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">FSPD</h5>
-                                    </div>
-                                    <h6 class="card-text">226</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">ACDE</h5>
-                                    </div>
-                                    <h6 class="card-text">128</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">ADSE</h5>
-                                    </div>
-                                    <h6 class="card-text">186</h6>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex flex-column">
-                                    <div class="my-1">
-                                        <h5 class="card-title">UIUX</h5>
-                                    </div>
-                                    <h6 class="card-text">174</h6>
-                                </div>
-                            </td>
+                                </td>
+                            {% endfor %}
                         </tr>
                     </table>
                 </div>

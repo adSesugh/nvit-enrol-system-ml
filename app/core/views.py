@@ -35,11 +35,18 @@ def dashboard():
         Student.employment_status).filter((Student.employment_status != 'Employed')).all()
     total_count = Student.query.count()
 
-    print(admitted)
-
     result = db.session.query(
         Student.disabled,
         Student.gender,
+        Student.course_of_study,
+        func.count().label('count')
+    ).group_by(
+        Student.disabled,
+        Student.gender,
+        Student.course_of_study
+    ).filter((Student.employment_status != 'Employed')).all()
+
+    result_courses = db.session.query(
         Student.course_of_study,
         func.count().label('count')
     ).group_by(
@@ -52,6 +59,11 @@ def dashboard():
     stats_data = [
         {'disabled': row[0], 'gender': row[1], 'course_of_study': course_code(row[2]), 'count': row[3]}
         for row in result
+    ]
+
+    admitted_courses = [
+        {'course': course_code(row[0]), 'count': row[1]}
+        for row in result_courses
     ]
 
     admitted_applicants = [{}]
@@ -88,7 +100,8 @@ def dashboard():
         'female_disabled': female_disabled,
         'male_disabled': male_disabled,
         'total_count': total_count,
-        'admitted': admitted
+        'admitted': admitted,
+        'admitted_courses': admitted_courses
     }
 
     return render_template('dashboard.html', records=data, stats_data=stats_data, employment_status=employment_status)
