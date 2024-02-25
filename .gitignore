@@ -109,5 +109,6 @@ venv.bak/
 /app/static/uploads/
 migrations
 seed.py
+practice.py
 /app/Attendance
 app/core/templates/dash_bak.html

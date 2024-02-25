@@ -121,6 +121,15 @@ courses = [
     {'name':'Applied IT Technical Support & Operations Engineering', 'code':'ITSO'}
 ]
 
+course_list = [
+    {'name':'Applied AI and ML Engineering for Business Transformation and Real-world Applications', 'code': 'AI/ML'},
+    {'name': 'Applied Cloud and DevOps Engineering', 'code': 'ACDE'},
+    {'name':'Applied Data Science and Engineering', 'code':'ADSE'},
+    {'name':'Applied Enhanced Human-Centered UX/UI Product Design', 'code':'UI/UX'},
+    {'name': 'Applied Full-Stack Python Development Track', 'code':'FSPD'},
+    {'name':'Applied IT Technical Support & Operations Engineering', 'code':'ITSO'}
+]
+
 
 def course_code(course):
     code = ''
@@ -128,5 +137,19 @@ def course_code(course):
         if cor['name'] == course:
             code = cor['code']
             break
-
     return code
+
+def course_codex(course):
+    code = ''
+    for cor in course_list:
+        if cor['name'] == course:
+            code = cor['code']
+            break
+    return code
+
+
+def full_name(obj):
+    if obj.middle_name != '':
+        return f'{obj.first_name}, {obj.middle_name} {obj.last_name}'
+
+    return f'{obj.first_name}, {obj.last_name}'

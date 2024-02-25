@@ -26,6 +26,9 @@
                       <li class="nav-item">
                         <a class="nav-link {{ 'active' if request.path == '/capture' else '' }}" aria-current="page" href="{{ url_for('core.home') }}">Home</a>
                       </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ 'active' if request.path == '/students/album' else '' }}" aria-current="page" href="{{ url_for('core.student_cards') }}">Student Album</a>
+                        </li>
                       <li class="nav-item">
                         <a class="nav-link {{ 'active' if request.path == '/nin-update' else '' }}" href="{{ url_for('core.nin_update') }}">NIN Update</a>
                       </li>

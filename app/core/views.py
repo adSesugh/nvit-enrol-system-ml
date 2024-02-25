@@ -17,23 +17,28 @@ from .. import db
 @core_bp.route('/', methods=['GET'])
 @login_required
 def dashboard():
-
     if current_user.role == 'user' and current_user.username != 'worldbank':
         return redirect(url_for('core.home'))
 
     students = len(Student.query.filter((Student.employment_status != 'Employed')).all())
-    female_count = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender == 'Female')).count()
+    female_count = Student.query.filter(
+        (Student.employment_status != 'Employed') & (Student.gender == 'Female')).count()
     male_count = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender == 'Male')).count()
     grouped = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
         Student.course_of_study).filter((Student.employment_status != 'Employed')).all()
     not_admitted = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
         Student.course_of_study).filter((Student.employment_status == 'Employed')).all()
-    male_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Male') & (Student.employment_status != 'Employed')).count()
-    female_disabled = Student.query.filter((Student.disabled == 'yes') & (Student.gender == 'Female') & (Student.employment_status != 'Employed')).count()
-    employment_status = Student.query.with_entities(Student.employment_status, func.count(Student.employment_status)).group_by(Student.employment_status).all()
+    male_disabled = Student.query.filter(
+        (Student.disabled == 'yes') & (Student.gender == 'Male') & (Student.employment_status != 'Employed')).count()
+    female_disabled = Student.query.filter(
+        (Student.disabled == 'yes') & (Student.gender == 'Female') & (Student.employment_status != 'Employed')).count()
+    employment_status = Student.query.with_entities(Student.employment_status,
+                                                    func.count(Student.employment_status)).group_by(
+        Student.employment_status).all()
     admitted = Student.query.with_entities(Student.employment_status, func.count(Student.course_of_study)).group_by(
         Student.employment_status).filter((Student.employment_status != 'Employed')).all()
-    result_admitted = Student.query.with_entities(Student.course_of_study, func.count(Student.course_of_study)).group_by(
+    result_admitted = Student.query.with_entities(Student.course_of_study,
+                                                  func.count(Student.course_of_study)).group_by(
         Student.course_of_study).filter((Student.employment_status != 'Employed')).all()
     total_count = Student.query.count()
 
@@ -64,7 +69,7 @@ def dashboard():
     labels = list()
     values = list()
     courses = list()
-    
+
     not_admitted_values = list()
     not_admitted_courses = list()
 
@@ -73,7 +78,7 @@ def dashboard():
         labels.append(code)
         values.append(course[1])
         courses.append(course[0])
-        
+
     for cx in not_admitted:
         code = course_code(cx[0])
         not_admitted_values.append(cx[1])
@@ -210,12 +215,12 @@ def add():
                 or data.get('guardian_last_name') == '' \
                 or data.get('guardian_phone_number') == '' \
                 or data.get('terms') == '':
-
             flash('Error occured, Please try again')
 
             return render_template('home.html', mess='All data is required', student=data)
 
-        student_exist = Student.query.filter_by(email=data.get('email')).first()  # Student.query.filter_by(email=data.get('email')).first()
+        student_exist = Student.query.filter_by(
+            email=data.get('email')).first()  # Student.query.filter_by(email=data.get('email')).first()
         student_phone_number_exist = Student.query.filter_by(phone_number=data.get('phone_number')).first()
 
         if student_exist or student_phone_number_exist:
@@ -240,7 +245,8 @@ def add():
         students = Student.query.all()
         student_count = len(students) + 1
 
-        data['student_no'] = f'NVIT/{code}/{str(year)}/{str(student_count).zfill(6)}'  #'NVIT/' + str(year) + '/' + str(Student.query.count() + 1).zfill(6)
+        data[
+            'student_no'] = f'NVIT/{code}/{str(year)}/{str(student_count).zfill(6)}'  # 'NVIT/' + str(year) + '/' + str(Student.query.count() + 1).zfill(6)
 
         data['terms'] = 'Yes' if data.get('terms') else 'No'
         data['user_id'] = current_user.id
@@ -291,7 +297,7 @@ def registered_students():
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
-    students = Student.query.filter(Student.employment_status!='Employed').order_by(Student.id).all()
+    students = Student.query.filter(Student.employment_status != 'Employed').order_by(Student.id).all()
     return render_template('student/studentlist.html', students=students)
 
 
@@ -308,7 +314,8 @@ def student_cards():
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
-    students = db.session.execute(db.select(Student).filter((Student.employment_status != 'Employed')).order_by(Student.id)).scalars().all()
+    students = db.session.execute(
+        db.select(Student).filter((Student.employment_status != 'Employed')).order_by(Student.id)).scalars().all()
     return render_template('student/card.html', students=students)
 
 
@@ -318,14 +325,15 @@ def album_preview():
     if current_user.role != 'admin':
         return redirect(url_for('core.home'))
 
-    students = db.session.execute(db.select(Student).filter((Student.employment_status != 'Employed')).order_by(Student.id)).scalars().all()
+    students = db.session.execute(
+        db.select(Student).filter((Student.employment_status != 'Employed')).order_by(Student.id)).scalars().all()
     return render_template('student/preview.html', students=students)
 
 
 @core_bp.route('/download-list', methods=['GET'])
 @login_required
 def download_list():
-    students = db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    students = Student.query.order_by(Student.id).filter(Student.employment_status != 'Employed') # db.session.execute(db.select(Student).order_by(Student.id).filter(Student.employment_status != 'Employed')).scalars().all()
     student_list = list()
     for student in students:
         data = {
@@ -367,7 +375,8 @@ def download_list():
                      'state_of_origin', 'lga_of_origin', 'dob', 'course_of_study', 'address', 'means_of_id',
                      'means_of_id_upload', 'employment_status', 'level_of_education', 'disabled', 'disability_detail',
                      'emergency_full_name', 'emergency_email', 'emergency_phone_number', 'emergency_address',
-                     'guardian_first_name', 'guardian_last_name', 'guardian_phone_number', 'guardian_email', 'terms', 'created'])
+                     'guardian_first_name', 'guardian_last_name', 'guardian_phone_number', 'guardian_email', 'terms',
+                     'created'])
 
 
 @core_bp.route('/nin-update', methods=['GET', 'POST'])
@@ -384,7 +393,15 @@ def nin_update():
 
         return redirect(url_for('core.nin_update'))
 
-    students = Student.query.with_entities(Student.id, Student.student_no, Student.phone_number, Student.first_name, Student.middle_name, Student.last_name, Student.lga_of_origin, Student.headshot, Student.means_of_id_no, Student.gender, Student.record_sealed).filter(and_(Student.employment_status != 'Employed', or_(Student.record_sealed.is_(False), Student.record_sealed.is_(None)))).order_by(Student.record_sealed).all()
+    students = Student.query.with_entities(Student.id, Student.student_no, Student.phone_number, Student.first_name,
+                                           Student.middle_name, Student.last_name, Student.lga_of_origin,
+                                           Student.headshot, Student.means_of_id_no, Student.gender,
+                                           Student.record_sealed).filter(and_(Student.employment_status != 'Employed',
+                                                                              or_(Student.record_sealed.is_(False),
+                                                                                  Student.record_sealed.is_(
+                                                                                      None)))).order_by(
+        Student.record_sealed).all()
     total_students = len(students)
-    
-    return render_template('student/ninupdate.html', students=students, total=total_students, title='Student NIN Update')
+
+    return render_template('student/ninupdate.html', students=students, total=total_students,
+                           title='Student NIN Update')

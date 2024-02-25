@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
@@ -57,14 +58,11 @@ class Student(db.Model):
 
     terms = db.Column(db.String(10), default=True, nullable=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     record_sealed = db.Column(db.Boolean, default=False)
     confirm_nin = db.Column(db.Boolean, default=False)
     reason = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(100), nullable=True, default='Pending')
-
-    def __repr__(self):
-        return "<%r> <%r>" % (self.first_name, self.last_name)
 
     def full_name(self):
         if self.middle_name != '':

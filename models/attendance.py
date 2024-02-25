@@ -6,6 +6,7 @@ from models.student import Student
 
 class Attendance(db.Model):
     __tablename__ = 'attendances'
+
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
     updated = db.Column(db.DateTime(timezone=True), default=datetime.now(),
                         onupdate=datetime.now())

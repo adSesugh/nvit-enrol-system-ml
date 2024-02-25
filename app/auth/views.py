@@ -1,9 +1,10 @@
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, jsonify
 from flask_login import login_user, logout_user
 from . import auth_bp
 
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, current_user
 from app import db, bcrypt, login_manager
 from .forms import RegistrationForm, LoginForm
 from . import auth_bp
@@ -40,6 +41,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember_me.data)
+
             # Store the intended URL in the session
             next_url = request.args.get('next')
             if not next_url or not next_url.startswith('/'):
@@ -51,7 +53,6 @@ def login():
         else:
             flash('Login unsuccessful. Please check email and password.', 'danger')
     return render_template('auth/login.html', title='Login', form=form)
-
 
 @auth_bp.route('/logout')
 @login_required
