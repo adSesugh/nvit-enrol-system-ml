@@ -6,6 +6,7 @@ from datetime import date, datetime
 import pyotp
 import qrcode
 from flask import jsonify, request
+from flask_cors import CORS, cross_origin
 from flask_jwt_extended import jwt_required, current_user, create_access_token
 from flask_mail import Message
 from sqlalchemy import Date, cast
@@ -20,6 +21,7 @@ from . import att_bp
 
 secret_key = pyotp.random_base32()
 otp = pyotp.TOTP(secret_key, interval=120, digits=4)
+CORS(att_bp, resources={r"/api/*": {"origins": "*"}})
 
 
 @att_bp.route('/api/login_v1', methods=['POST'])
