@@ -62,7 +62,11 @@ class Student(db.Model):
     record_sealed = db.Column(db.Boolean, default=False)
     confirm_nin = db.Column(db.Boolean, default=False)
     reason = db.Column(db.String(100), nullable=True)
+    is_approved = db.Column(db.Boolean, default=False)
+    stud_session = db.Column(db.Integer, db.ForeignKey('sessions.id'), nullable=True)
     status = db.Column(db.String(100), nullable=True, default='Pending')
+
+    attendances = db.relationship('Attendance', backref='student', lazy='dynamic')
 
     def full_name(self):
         if self.middle_name != '':

@@ -28,17 +28,10 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
     # Mail setup
-    # app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    # app.config['MAIL_PORT'] = 465
-    # app.config['MAIL_USERNAME'] = 'asesugh@gmail.com'
-    # app.config['MAIL_PASSWORD'] = 'Sur12face@#'
-    # app.config['MAIL_USE_TLS'] = False
-    # app.config['MAIL_USE_SSL'] = True
-
-    app.config['MAIL_SERVER'] = 'sandbox.smtp.mailtrap.io'
-    app.config['MAIL_PORT'] = 2525
-    app.config['MAIL_USERNAME'] = '998ca47ef6793c'
-    app.config['MAIL_PASSWORD'] = 'd9d614960857ab'
+    app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+    app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
 
