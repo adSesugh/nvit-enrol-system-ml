@@ -27,9 +27,7 @@ CORS(att_bp, resources={r"/api/*": {"origins": "*"}})
 @att_bp.route('/api/login_v1', methods=['POST'])
 def login_v1():
     data = request.get_json()
-    print(data)
     student = Student.query.filter_by(phone_number=data['phone_number']).first()
-    print(student)
     if student:
         access_token = create_access_token(identity=student)
         return jsonify({'token': access_token, 'headshot': student.headshot, 'role': 'student'}), 200
@@ -59,7 +57,6 @@ def login_v2():
 @att_bp.route('/api/verifyCode', methods=['POST'])
 def verify_learner():
     data = request.get_json()
-    print(data)
     if otp.verify(data['code']):
         user = User.query.filter_by(email=data['email']).first()
         access_token = create_access_token(identity=user)
@@ -159,7 +156,7 @@ def get_learner_board():
     attendances = Attendance.query.filter_by(student_id=current_user.id).order_by(Attendance.id.desc()).limit(5).all()
     actual_attendance = Attendance.query.filter_by(status=True, student_id=current_user.id).count()
     expected_attendance = Attendance.query.filter_by(student_id=current_user.id).count()
-    attendance_performance = actual_attendance/expected_attendance * 100
+    attendance_performance = actual_attendance/expected_attendance * 100 if expected_attendance > 0 else 0
 
     att_list = list()
     index = 0
