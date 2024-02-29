@@ -53,6 +53,10 @@ def create_app():
     app.register_blueprint(core_bp)
     app.register_blueprint(att_bp)
 
+    @app.context_processor
+    def inject_enumerate():
+        return dict(enumerate=enumerate)
+
     return app
 
 

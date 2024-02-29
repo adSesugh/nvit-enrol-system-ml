@@ -139,12 +139,14 @@ def get_learner(phone_number):
 @att_bp.route('/api/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
+    stud_session = Session.query.get(current_user.stud_session)
     profile = {
         'full_name': full_name(current_user),
         'course': current_user.course_of_study,
         'studentId': current_user.student_no,
         'email': current_user.email,
         'phone': current_user.phone_number,
+        'session': stud_session.duration,
         'status': True
     }
 
