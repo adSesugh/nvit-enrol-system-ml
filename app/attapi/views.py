@@ -42,7 +42,6 @@ def login_v2():
     user = User.query.filter_by(email=data['email']).first()
     if user:
         otp_code = otp.now()
-        print(otp_code)
         msg = Message("VerifyAtt verification code!",
                       sender="noreply@nvit.tech",
                       recipients=[user.email, 'asesugh@gmail.com'])
