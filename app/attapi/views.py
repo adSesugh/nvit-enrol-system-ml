@@ -29,6 +29,14 @@ def login_v1():
     data = request.get_json()
     student = Student.query.filter_by(phone_number=data['phone_number']).first()
     if student:
+        if student.device_id is None:
+            student.device_id = data['deviceId']
+            db.session.add(student)
+            db.session.commit()
+        else:
+            if student.device_id != data['deviceId']:
+                return jsonify({'error': 'Access denied! Please contact the administrator!'}), 401
+
         access_token = create_access_token(identity=student)
         return jsonify({'token': access_token, 'headshot': student.headshot, 'role': 'student'}), 200
     else:
