@@ -80,7 +80,6 @@ def generate_qrcode():
     if user:
         qr = qrcode.make(user)
         qr_img_path = os.path.join('app/static', 'qrcodes', f'{current_user.phone_number}.png')
-        qr.resize((200, 200))
         qr.save(qr_img_path, format='PNG')
 
         filename = f'static/qrcodes/{current_user.phone_number}.png'
@@ -96,49 +95,54 @@ def get_learner(phone_number):
     current_time = datetime.combine(datetime.today(), datetime.now().time())
 
     learner = Student.query.filter_by(phone_number=phone_number).first()
-    stud_session = Session.query.get(learner.stud_session)
+    if learner:
+        stud_session = Session.query.get(learner.stud_session)
+        starts_at = datetime.strptime(f'{stud_session.starts_at}', "%H:%M:%S%z").time()
+        ends_at = datetime.strptime(f'{stud_session.ends_at}', "%H:%M:%S%z").time()
+        session_starts = datetime.combine(datetime.today(), starts_at)
+        session_ends = datetime.combine(datetime.today(), ends_at)
 
-    starts_at = datetime.strptime(f'{stud_session.starts_at}', "%H:%M:%S%z").time()
-    ends_at = datetime.strptime(f'{stud_session.ends_at}', "%H:%M:%S%z").time()
-    session_starts = datetime.combine(datetime.today(), starts_at)
-    session_ends = datetime.combine(datetime.today(), ends_at)
+        profile = {
+            'full_name': full_name(learner),
+            'course': course_codex(learner.course_of_study),
+            'studentId': learner.student_no,
+            'email': learner.email,
+            'phone': learner.phone_number,
+            'photo': learner.headshot
+        }
 
-    profile = {
-        'full_name': full_name(learner),
-        'course': course_codex(learner.course_of_study),
-        'studentId': learner.student_no,
-        'email': learner.email,
-        'phone': learner.phone_number,
-        'photo': learner.headshot
-    }
-    if session_starts <= current_time <= session_ends:
-        current_attendance = Attendance.query.filter(cast(Attendance.checkin, Date) == date.today()).filter_by(student=learner).first()
-        if current_attendance:
-            if current_attendance.checkout is not None:
-                profile['msg'] = 'Already Check-out'
-                profile['status'] = True
-                return jsonify({'learner': profile}), 200
+        if session_starts <= current_time <= session_ends:
+            current_attendance = Attendance.query.filter(cast(Attendance.checkin, Date) == date.today()).filter_by(student=learner).first()
+            if current_attendance:
+                if current_attendance.checkout is not None:
+                    profile['msg'] = 'Already Check-out'
+                    profile['status'] = True
 
-            current_attendance.checkout = datetime.now()
-            db.session.add(current_attendance)
-            db.session.commit()
+                    return jsonify({'learner': profile}), 200
+                else:
+                    current_attendance.checkout = datetime.now()
+                    db.session.add(current_attendance)
+                    db.session.commit()
 
-            profile['msg'] = 'Check-out Successful'
-            profile['status'] = True
-            return jsonify({'learner': profile}), 200
-        else:
-            attendance = Attendance(student=learner, checkin=datetime.now(), status=True, taken_by=current_user.id)
-            db.session.add(attendance)
-            db.session.commit()
-            if learner:
+                    profile['msg'] = 'Check-out Successful'
+                    profile['status'] = True
+
+                    return jsonify({'learner': profile}), 200
+            else:
+                attendance = Attendance(student=learner, checkin=datetime.now(), status=True, taken_by=4)
+                db.session.add(attendance)
+                db.session.commit()
+
                 profile['msg'] = 'Check-in Successful'
                 profile['status'] = True
+
                 return jsonify({'learner': profile}), 200
-    else:
-        profile['session'] = stud_session.duration
-        profile['status'] = False
-        profile['msg'] = 'Capture unsuccessful'
-        return jsonify({'learner': profile}), 200
+        else:
+            profile['session'] = stud_session.duration
+            profile['status'] = False
+            profile['msg'] = 'Capture unsuccessful'
+
+            return jsonify({'learner': profile}), 200
 
     return jsonify({'error': 'Learner not found'}), 404
 
@@ -166,7 +170,7 @@ def get_learner_board():
     attendances = Attendance.query.filter_by(student_id=current_user.id).order_by(Attendance.id.desc()).limit(5).all()
     actual_attendance = Attendance.query.filter_by(status=True, student_id=current_user.id).count()
     expected_attendance = Attendance.query.filter_by(student_id=current_user.id).count()
-    attendance_performance = actual_attendance/expected_attendance * 100 if expected_attendance > 0 else 0
+    attendance_performance = actual_attendance / expected_attendance * 100 if expected_attendance > 0 else 0
 
     att_list = list()
     index = 0
@@ -194,7 +198,7 @@ def get_learner_board():
 def get_staff_board():
     student_total = Student.query.filter(Student.employment_status != 'Employed').count()
     attendance = Attendance.query.filter(cast(Attendance.checkin, Date) == date.today()).count()
-    attendance_percentage = attendance/student_total*100
+    attendance_percentage = attendance / student_total * 100
     return jsonify({'records': {
         'student_total': student_total,
         'attendance': attendance,
