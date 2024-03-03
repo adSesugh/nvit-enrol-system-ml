@@ -50,7 +50,7 @@ def login_v2():
     user = User.query.filter_by(email=data['email']).first()
     if user:
         otp_code = otp.now()
-        msg = Message("VerifyAtt verification code!",
+        msg = Message("NVITClock verification code!",
                       sender="noreply@nvit.tech",
                       recipients=[user.email, 'asesugh@gmail.com'])
         msg.html = f"Hello {user.username}! <br />Your verification code is: <br /><h1>{otp_code}</h1>"
@@ -98,8 +98,8 @@ def get_learner(phone_number):
     stud_session = Session.query.get(learner.stud_session)
 
     starts_at = datetime.strptime(f'{stud_session.starts_at}', "%H:%M:%S%z").time()
-    session_starts = datetime.combine(datetime.today(), starts_at)
     ends_at = datetime.strptime(f'{stud_session.ends_at}', "%H:%M:%S%z").time()
+    session_starts = datetime.combine(datetime.today(), starts_at)
     session_ends = datetime.combine(datetime.today(), ends_at)
 
     profile = {
@@ -108,14 +108,14 @@ def get_learner(phone_number):
         'studentId': learner.student_no,
         'email': learner.email,
         'phone': learner.phone_number,
-        'status': True,
         'photo': learner.headshot
     }
     if session_starts <= current_time <= session_ends:
-        current_attendance = Attendance.query.filter((cast(Attendance.checkin, Date) == date.today()) & (Attendance.checkin is not None)).filter_by(student=learner).first()
+        current_attendance = Attendance.query.filter((cast(Attendance.checkin, Date) == date.today())).filter_by(student=learner).first()
         if current_attendance:
             if current_attendance.checkout is not None:
                 profile['msg'] = 'Already Check-out'
+                profile['status'] = True
                 return jsonify({'learner': profile}), 200
 
             current_attendance.checkout = datetime.now()
@@ -123,6 +123,7 @@ def get_learner(phone_number):
             db.session.commit()
 
             profile['msg'] = 'Check-out Successful'
+            profile['status'] = True
             return jsonify({'learner': profile}), 200
         else:
             attendance = Attendance(student=learner, checkin=datetime.now(), status=True, taken_by=current_user.id)
@@ -130,6 +131,7 @@ def get_learner(phone_number):
             db.session.commit()
             if learner:
                 profile['msg'] = 'Check-in Successful'
+                profile['status'] = True
                 return jsonify({'learner': profile}), 200
     else:
         profile['session'] = stud_session.duration
