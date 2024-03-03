@@ -27,6 +27,7 @@ CORS(att_bp, resources={r"/api/*": {"origins": "*"}})
 @att_bp.route('/api/login_v1', methods=['POST'])
 def login_v1():
     data = request.get_json()
+
     student = Student.query.filter_by(phone_number=data['phone_number']).first()
     if student:
         if student.device_id is None:
@@ -111,7 +112,7 @@ def get_learner(phone_number):
         'photo': learner.headshot
     }
     if session_starts <= current_time <= session_ends:
-        current_attendance = Attendance.query.filter((cast(Attendance.checkin, Date) == date.today())).filter_by(student=learner).first()
+        current_attendance = Attendance.query.filter(cast(Attendance.checkin, Date) == date.today()).filter_by(student=learner).first()
         if current_attendance:
             if current_attendance.checkout is not None:
                 profile['msg'] = 'Already Check-out'
