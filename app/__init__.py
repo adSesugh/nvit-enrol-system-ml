@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from flask import Flask, session, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -24,7 +25,12 @@ def create_app():
     app = Flask(__name__)
     
     app.config['SECRET_KEY'] = os.urandom(64)
+
+    # JWT config
     app.config["JWT_SECRET_KEY"] = os.urandom(64)
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=365)
+
+    # Database config
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
     # Mail setup

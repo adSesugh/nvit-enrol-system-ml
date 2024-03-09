@@ -7,7 +7,7 @@ import pyotp
 import qrcode
 from flask import jsonify, request
 from flask_cors import CORS, cross_origin
-from flask_jwt_extended import jwt_required, current_user, create_access_token
+from flask_jwt_extended import jwt_required, current_user, create_access_token, set_access_cookies, unset_jwt_cookies
 from flask_mail import Message
 from sqlalchemy import Date, cast
 
@@ -36,7 +36,7 @@ def login_v1():
             db.session.commit()
         else:
             if student.device_id != data['deviceId']:
-                return jsonify({'error': 'Access denied! Please contact the administrator!'}), 401
+                return jsonify({'error': 'Access locked! contact your administrator!'}), 401
 
         access_token = create_access_token(identity=student)
         return jsonify({'token': access_token, 'headshot': student.headshot, 'role': 'student'}), 200
@@ -71,6 +71,13 @@ def verify_learner():
         return jsonify(token=access_token, role='user'), 200
     else:
         return jsonify({'error': 'Invalid code'}), 401
+
+
+@att_bp.route("/logout", methods=["POST"])
+def logout():
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
+    return response
 
 
 @att_bp.route('/api/qrcode', methods=['GET'])
