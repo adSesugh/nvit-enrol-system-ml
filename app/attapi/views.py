@@ -52,7 +52,7 @@ def login_v2():
     if user:
         otp_code = otp.now()
         msg = Message("NVITClock verification code!",
-                      sender=os.environ.get('MAIL_USERNAME'),
+                      sender=('NVIT', os.environ.get('MAIL_USERNAME')),
                       recipients=[user.email])
         msg.html = f"Hello {user.username}! <br />Your verification code is: <br /><h1>{otp_code}</h1>"
         msg.send(mail)
