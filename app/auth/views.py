@@ -65,3 +65,8 @@ def logout():
 @login_required
 def profile():
     return render_template('auth/profile.html', title='Profile')
+
+
+@auth_bp.route('/policy', methods=['GET'])
+def get_policy():
+    return render_template('policy.html')
