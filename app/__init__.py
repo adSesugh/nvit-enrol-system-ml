@@ -28,7 +28,7 @@ def create_app():
 
     # JWT config
     app.config["JWT_SECRET_KEY"] = os.urandom(64)
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=365)
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=90)
 
     # Database config
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
