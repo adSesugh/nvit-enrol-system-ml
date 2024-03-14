@@ -117,3 +117,6 @@ app/core/templates/dash_bak.html
 student-session.xlsx
 attendances.xlsx
 courses.py
+datetime_convert.py
+jobs.csv
+test.txt

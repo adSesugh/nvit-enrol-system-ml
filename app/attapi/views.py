@@ -4,6 +4,7 @@ import os
 from datetime import date, datetime
 
 import pyotp
+import pytz
 import qrcode
 from flask import jsonify, request
 from flask_cors import CORS, cross_origin
@@ -16,7 +17,7 @@ from models.attendance import Attendance
 from models.session import Session
 from models.student import Student
 from models.user import User
-from utils.common import full_name, course_codex
+from utils.common import full_name, course_codex, remove_timezone, check_zero_time, contains_timezone_offset
 from . import att_bp
 
 secret_key = pyotp.random_base32()
@@ -37,6 +38,10 @@ def login_v1():
         else:
             if student.device_id != data['deviceId']:
                 return jsonify({'error': 'Access locked! contact your administrator!'}), 401
+
+        student.last_login = datetime.now()
+        db.session.add(student)
+        db.session.commit()
 
         access_token = create_access_token(identity=student)
         return jsonify({'token': access_token, 'headshot': student.headshot, 'role': 'student'}), 200
@@ -185,11 +190,21 @@ def get_learner_board():
 
     att_list = list()
     index = 0
+
     for attendance in attendances:
         index += 1
+
+        attendance_checkin = attendance.checkin
+        if "00:00+00" in attendance_checkin.__str__():
+            datetime_obj = datetime.strptime(f'{attendance.checkin}', "%Y-%m-%d %H:%M:%S%z")
+            checkin_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S.%f%z").replace("+00", "+01")
+        else:
+            datetime_obj = datetime.strptime(f'{attendance.checkin}', "%Y-%m-%d %H:%M:%S.%f%z")
+            checkin_time = datetime_obj.strftime("%Y-%m-%d %H:%M:%S.%f%z").replace("+00", "+01")
+
         data = {
             'id': index,
-            'checkin': attendance.checkin,
+            'checkin': checkin_time,
             'status': attendance.status
         }
         att_list.append(data)

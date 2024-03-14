@@ -1,6 +1,7 @@
 import os
 from datetime import timedelta
 
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, session, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
@@ -9,6 +10,7 @@ from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
+from pytz import timezone
 
 load_dotenv()
 
@@ -19,12 +21,14 @@ migrate = Migrate()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 mail = Mail()
+scheduler = BackgroundScheduler()
 
 
 def create_app():
     app = Flask(__name__)
     
     app.config['SECRET_KEY'] = os.urandom(64)
+    #app.config['TZ'] = timezone('Africa/Lagos')
 
     # JWT config
     app.config["JWT_SECRET_KEY"] = os.urandom(64)
@@ -63,22 +67,18 @@ def create_app():
     def inject_enumerate():
         return dict(enumerate=enumerate)
 
+    @app.before_request
+    def check_user_role():
+        # Check if the user is authenticated and has a role stored in the session
+        if current_user.is_authenticated and 'user_role' in session:
+            user_role = session['user_role']
+
+            # Redirect users based on their role
+            if user_role == 'admin':
+                if request.endpoint and 'admin' not in request.endpoint:
+                    return redirect(url_for('core.dashboard'))
+            elif user_role == 'user':
+                if request.endpoint and 'user' not in request.endpoint:
+                    return redirect(url_for('core.capture'))
+
     return app
-
-
-app = create_app()
-
-
-@app.before_request
-def check_user_role():
-    # Check if the user is authenticated and has a role stored in the session
-    if current_user.is_authenticated and 'user_role' in session:
-        user_role = session['user_role']
-
-        # Redirect users based on their role
-        if user_role == 'admin':
-            if request.endpoint and 'admin' not in request.endpoint:
-                return redirect(url_for('core.dashboard'))
-        elif user_role == 'user':
-            if request.endpoint and 'user' not in request.endpoint:
-                return redirect(url_for('core.capture'))
