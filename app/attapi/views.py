@@ -30,7 +30,7 @@ def login_v1():
     data = request.get_json()
 
     student = Student.query.filter_by(phone_number=data['phone_number']).first()
-    if student:
+    if student and student.stud_session is not None:
         if student.device_id is None:
             student.device_id = data['deviceId']
             db.session.add(student)
@@ -45,6 +45,8 @@ def login_v1():
 
         access_token = create_access_token(identity=student)
         return jsonify({'token': access_token, 'headshot': student.headshot, 'role': 'student'}), 200
+    elif student.stud_session is None:
+        return jsonify({'error': 'Access denied!, Please contact administrator'}), 401
     else:
         return jsonify({'error': 'Invalid credentials'}), 401
 
