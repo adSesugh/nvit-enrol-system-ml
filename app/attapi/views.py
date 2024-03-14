@@ -17,7 +17,7 @@ from models.attendance import Attendance
 from models.session import Session
 from models.student import Student
 from models.user import User
-from utils.common import full_name, course_codex, remove_timezone, check_zero_time, contains_timezone_offset
+from utils.common import full_name, course_codex
 from . import att_bp
 
 secret_key = pyotp.random_base32()
