@@ -16,7 +16,7 @@
     <div class="container-fluid mt-2" id="card">
         <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %} mt-2" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
             {% if students %}
-                {% for student in students %}
+                {% for index, student in enumerate(students) %}
                     <div class="grid card h-100 m-1" style="width: 18rem;">
                         {% if student.headshot %}
                             <img src="{{ student.headshot }}" class="card-img-top h-50" alt="{{ student.first_name }}">
@@ -55,6 +55,10 @@
                             <div class="row no-gutters my-1">
                                 <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">Disability (Don't copy):&nbsp;</div>
                                 <div class="col-9 card-text" style="font-size: 12px;">{{ student.disabled|capitalize}}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-3 card-text" style="font-size: 12px; font-weight: bold;">S/No:&nbsp;</div>
+                                <div class="col-9 card-text" style="font-size: 12px;">{{ index + 1}}</div>
                             </div>
                         </div>
                     </div>
