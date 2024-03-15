@@ -5,6 +5,7 @@ from enum import Enum
 from sqlalchemy.dialects.postgresql import TEXT
 
 from app import db
+from utils.common import course_list_for_album
 
 
 class STATUS(Enum):
@@ -74,3 +75,11 @@ class Student(db.Model):
             return "%s %s %s" % (self.first_name, self.middle_name, self.last_name)
 
         return "%s %s" % (self.first_name, self.last_name)
+
+    def student_course(self):
+        code = ''
+        for cor in course_list_for_album:
+            if cor['name'] == self.course_of_study:
+                code = cor['code']
+                break
+        return code

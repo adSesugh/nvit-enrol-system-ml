@@ -1,0 +1,250 @@
+{% if current_user.role == 'admin' or current_user.username == 'worldbank' %}
+    {% extends 'base.html' %}
+{% else %}
+    {% extends 'guest_base.html' %}
+{% endif %}
+
+
+{% block title %} Student Album {% endblock %}
+
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <div class="container-fluid mt-2" id="card">
+        <div class="{% if current_user.role == 'admin' or current_user.username == 'worldbank' %} albumcard {% else %} custom-card {% endif %} mt-2" style="--bs-columns: {% if current_user.role == 'admin' %} 4 {% else %} 5 {% endif %};">
+            {% if students %}
+                {% for student in students %}
+                    <div class="grid card h-100 m-1" style="width: 18rem;">
+                        {% if student.headshot %}
+                            <img src="{{ student.headshot }}" class="card-img-top h-50" alt="{{ student.first_name }}">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='nvit-logo.png') }}" class="card-img-top h-50" alt="{{ student.first_name }}">
+                        {% endif %}
+                        <div class="card-body px-2">
+                            <div class="row no-gutters mb-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Name:&nbsp;</div>
+                                <div class="col-8"><h6 class="card-text" style="font-size: 12px;">{{ student.full_name()|capitalize }}</h6></div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Course:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.student_course() }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Phone:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.phone_number }}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">Email:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.email}}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">LGA:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.lga_of_origin|capitalize}}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">State:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.state_of_origin|capitalize}}</div>
+                            </div>
+                            <div class="row no-gutters my-1">
+                                <div class="col-4 card-text" style="font-size: 12px; font-weight: bold;">NIN:&nbsp;</div>
+                                <div class="col-8 card-text" style="font-size: 12px;">{{ student.means_of_id_no}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-sm-12 d-flex justify-content-center align-center">
+                    <h5>No Record found!</h5>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Inter", sans-serif;
+        }
+        .formbold-main-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+        }
+
+        .formbold-form-wrapper {
+            margin: 0 auto;
+            max-width: 550px;
+            width: 100%;
+            background: white;
+        }
+
+        .formbold-steps {
+            padding-bottom: 18px;
+            margin-bottom: 35px;
+            border-bottom: 1px solid #DDE3EC;
+        }
+        .formbold-steps ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+        .formbold-steps li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            color: #536387;
+        }
+        .formbold-steps li span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #DDE3EC;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            color: #536387;
+        }
+        .formbold-steps li.active {
+            color: #07074D;;
+        }
+        .formbold-steps li.active span {
+            background: #6A64F1;
+            color: #FFFFFF;
+        }
+
+        .formbold-input-flex {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+        .formbold-input-flex > div {
+            width: 50%;
+        }
+        .formbold-form-input {
+            width: 100%;
+            padding: 13px 22px;
+            border-radius: 5px;
+            border: 1px solid #DDE3EC;
+            background: #FFFFFF;
+            font-weight: 500;
+            font-size: 16px;
+            color: #536387;
+            outline: none;
+            resize: none;
+        }
+        .formbold-form-input:focus {
+            border-color: #6a64f1;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-form-label {
+            color: #07074D;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .formbold-form-confirm {
+            border-bottom: 1px solid #DDE3EC;
+            padding-bottom: 35px;
+        }
+        .formbold-form-confirm p {
+            font-size: 16px;
+            line-height: 24px;
+            color: #536387;
+            margin-bottom: 22px;
+            width: 75%;
+        }
+        .formbold-form-confirm > div {
+            display: flex;
+            gap: 15px;
+        }
+
+        .formbold-confirm-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            border: 0.5px solid #DDE3EC;
+            border-radius: 5px;
+            font-size: 16px;
+            line-height: 24px;
+            color: #536387;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: all .3s ease-in-out;
+        }
+        .formbold-confirm-btn {
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+        }
+        .formbold-confirm-btn.active {
+            background: #6A64F1;
+            color: #FFFFFF;
+        }
+
+        .formbold-form-step-1,
+        .formbold-form-step-2,
+        .formbold-form-step-3 {
+            display: none;
+        }
+        .formbold-form-step-1.active,
+        .formbold-form-step-2.active,
+        .formbold-form-step-3.active {
+            display: block;
+        }
+
+        .formbold-form-btn-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .formbold-back-btn {
+            cursor: pointer;
+            background: #FFFFFF;
+            border: none;
+            color: #07074D;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            display: none;
+        }
+        .formbold-back-btn.active {
+            display: block;
+        }
+        .formbold-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 10px 25px;
+            border: none;
+            font-weight: 500;
+            background-color: #6A64F1;
+            color: white;
+            cursor: pointer;
+        }
+        .formbold-btn:hover {
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+{% endblock %}

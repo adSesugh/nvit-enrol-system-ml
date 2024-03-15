@@ -36,6 +36,15 @@ def album_list():
         "student/card.html", students=students, title="Student Album"
     )
 
+
+@student_bp.route("/wb-album", methods=["GET"])
+@login_required
+def wb_album():
+    students = Student.query.filter((Student.employment_status != 'Employed')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    return render_template(
+        "student/foralbum.html", students=students, title="Student Album"
+    )
+
 @student_bp.route("/attendance", methods=["GET"])
 @login_required
 def attendance_list():
