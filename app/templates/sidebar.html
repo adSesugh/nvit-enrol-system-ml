@@ -37,8 +37,10 @@
                 <div class="collapse" id="applicants">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ url_for('core.registered_students') }}">Registered</a></li>
-{#                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('core.student_cards') }}">Album View</a></li>#}
-                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('student.wb_album') }}">Album</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('core.student_cards') }}">General Album</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('student.wb_album') }}">Male Album</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('student.wb_album_female') }}">Female Album</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('student.wb_album_disabled') }}">Album for Disabled</a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ url_for('core.nin_update') }}">NIN Update</a></li>
                     </ul>
                 </div>

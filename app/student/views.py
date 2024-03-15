@@ -37,13 +37,32 @@ def album_list():
     )
 
 
-@student_bp.route("/wb-album", methods=["GET"])
+@student_bp.route("/wb-album-for-male", methods=["GET"])
 @login_required
 def wb_album():
-    students = Student.query.filter((Student.employment_status != 'Employed')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    students = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender=='Male')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
     return render_template(
         "student/foralbum.html", students=students, title="Student Album"
     )
+
+
+@student_bp.route("/wb-album-for-female", methods=["GET"])
+@login_required
+def wb_album_female():
+    students = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender=='Female')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    return render_template(
+        "student/foralbum.html", students=students, title="Student Album"
+    )
+
+
+@student_bp.route("/wb-album-for-disabled", methods=["GET"])
+@login_required
+def wb_album_disabled():
+    students = Student.query.filter((Student.employment_status != 'Employed') & (Student.disabled=='yes')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    return render_template(
+        "student/foralbum.html", students=students, title="Student Album"
+    )
+
 
 @student_bp.route("/attendance", methods=["GET"])
 @login_required
