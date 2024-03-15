@@ -30,22 +30,21 @@ def login_v1():
     data = request.get_json()
 
     student = Student.query.filter_by(phone_number=data['phone_number']).first()
-
+    # already_logged_in = Student.query.filter((Student.phone_number != student.phone_number) & (Student.device_id == data['deviceId'])).first()
     if student and student.stud_session is not None:
-        already_exists = Student.query.filter(Student.phone_number != student.phone_number).filter_by(device_id=data['deviceId']).first()
-        if student.device_id is None and not already_exists:
+        if student.device_id is None:
             student.device_id = data['deviceId']
             db.session.add(student)
             db.session.commit()
-        elif already_exists:
-            return jsonify({'error': 'Already logged in another device'}), 401
+        # elif:
+        #     return jsonify({'error': 'Already logged in another device'}), 401
         else:
-            if student.device_id != data['deviceId']:
+            if student.device_id != data['deviceId'] and student.device_id is not None:
                 return jsonify({'error': 'Access locked! contact your administrator!'}), 401
 
-        student.last_login = datetime.now()
-        db.session.add(student)
-        db.session.commit()
+        # student.last_login = datetime.now()
+        # db.session.add(student)
+        # db.session.commit()
 
         access_token = create_access_token(identity=student)
         return jsonify({'token': access_token, 'headshot': student.headshot, 'role': 'student'}), 200
