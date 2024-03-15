@@ -39,7 +39,7 @@ def login_v1():
         # elif:
         #     return jsonify({'error': 'Already logged in another device'}), 401
         else:
-            if student.device_id != data['deviceId'] and student.device_id is not None:
+            if student.device_id != data['deviceId']:
                 return jsonify({'error': 'Access locked! contact your administrator!'}), 401
 
         # student.last_login = datetime.now()
