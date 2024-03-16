@@ -140,6 +140,16 @@ course_list_for_album = [
 ]
 
 
+course_short = [
+    {'name':'Applied AI and ML Engineering for Business Transformation and Real-world Applications', 'code': 'AI/ML'},
+    {'name': 'Applied Cloud and DevOps Engineering', 'code': 'Applied Data Science'},
+    {'name':'Applied Data Science and Engineering', 'code':'Applied Data Science'},
+    {'name':'Applied Enhanced Human-Centered UX/UI Product Design', 'code':'UI/UX'},
+    {'name': 'Applied Full-Stack Python Development Track', 'code':'Full-stack Python'},
+    {'name':'Applied IT Technical Support & Operations Engineering', 'code':'IT Technical Support & Ops'}
+]
+
+
 def course_code(course):
     code = ''
     for cor in courses:
