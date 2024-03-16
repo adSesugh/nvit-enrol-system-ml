@@ -1,9 +1,13 @@
+import os
+
 import pandas
 import pandas as pd
+import qrcode
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 from models.attendance import Attendance
+from models.session import Session
 from models.student import Student
 from . import student_bp
 from .form import AttendanceForm
@@ -105,3 +109,42 @@ def attendance_upload():
             return render_template('attendance/create.html', str(e))
 
     return render_template('attendance/create.html', form=form)
+
+
+@student_bp.route('/generate-card', methods=['GET', 'POST'])
+def generate_card():
+    global qrcode_url
+    if request.method == 'POST':
+        phone_number = request.form.get('phone_number')
+        student = Student.query.filter_by(phone_number=phone_number).first()
+        student_session = Session.query.filter_by(id=student.stud_session).first()
+
+        if student:
+            qr = qrcode.make(student.phone_number)
+            qr_img_path = os.path.join('app/static', 'qrcodes', f'{student.phone_number}.png')
+            qr.save(qr_img_path, format='PNG')
+
+            filename = f'static/qrcodes/{student.phone_number}.png'
+            qrcode_url = request.host_url + filename
+            student_session = Session.query.filter_by(id=student.stud_session).first()
+
+        details = {
+            'student': student,
+            'session': student_session.duration,
+            'qrcode_url': qrcode_url
+        }
+
+        return render_template('student/card_temp.html', **details)
+    return render_template('student/card_temp.html')
+
+
+@student_bp.route('/get-card/', methods=['GET'])
+def get_card():
+    fullname = request.args.get('fullname', None)
+    session = request.args.get('session', None)
+    headshot = request.args.get('headshot', None)
+    learnerId = request.args.get('learnerId', None)
+    qrcode_url = request.args.get('qrcode_url', None)
+    course = request.args.get('course', None)
+
+    return render_template('idcard.html', headshot=headshot, fullname=fullname, qrcode_url=qrcode_url, course=course, learnerId=learnerId, session=session)

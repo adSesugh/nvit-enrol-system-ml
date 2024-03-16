@@ -6,7 +6,7 @@ from datetime import date, datetime
 import pyotp
 import pytz
 import qrcode
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, url_for, redirect
 from flask_cors import CORS, cross_origin
 from flask_jwt_extended import jwt_required, current_user, create_access_token, set_access_cookies, unset_jwt_cookies
 from flask_mail import Message
@@ -19,6 +19,9 @@ from models.student import Student
 from models.user import User
 from utils.common import full_name, course_codex
 from . import att_bp
+from selenium import webdriver
+from chromedriver_py import binary_path
+
 
 secret_key = pyotp.random_base32()
 otp = pyotp.TOTP(secret_key, interval=120, digits=4)
@@ -106,43 +109,6 @@ def generate_qrcode():
         qr_img_url = request.host_url + filename
 
         return jsonify({'qr_code': qr_img_url}), 200
-    return jsonify({'error': 'Data not provided'}), 404
-
-
-@att_bp.route('/api/qrcode-generator', methods=['POST'])
-#@jwt_required()
-def student_generate_qrcode():
-    data = request.get_json()
-    student = Student.query.filter_by(phone_number=data['phone_number']).first()
-    if student:
-        qr = qrcode.make(student.phone_number)
-        qr_img_path = os.path.join('app/static', 'qrcodes', f'{student.phone_number}.png')
-        qr.save(qr_img_path, format='PNG')
-
-        filename = f'static/qrcodes/{student.phone_number}.png'
-        qrcode_url = request.host_url + filename
-        student_session = Session.query.filter_by(id=student.stud_session).first()
-
-        details = {
-            'qrcode_url': qrcode_url,
-            'headshot': student.headshot,
-            'learnerId': student.student_no,
-            'course': student.student_card_course(),
-            'session': student_session.duration,
-            'fullname': student.get_name_initial()
-        }
-
-        html_content = render_template('idcard.html', qrcode_url=qrcode_url, headshot=student.headshot, learnerId=student.student_no, fullname=student.get_name_initial(), course=student.student_card_course(), session=student_session.duration)
-
-        # Send email with ID card as attachment
-        msg = Message("Your School ID Card!",
-                      sender=('NVIT', os.environ.get('MAIL_USERNAME')),
-                      recipients=[student.email])
-
-        msg.html = html_content
-        mail.send(msg)
-
-        return jsonify(details), 200
     return jsonify({'error': 'Data not provided'}), 404
 
 
