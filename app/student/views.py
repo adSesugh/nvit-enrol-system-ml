@@ -134,8 +134,8 @@ def generate_card():
             'qrcode_url': qrcode_url
         }
 
-        return render_template('student/card_temp.html', **details)
-    return render_template('student/card_temp.html')
+        return render_template('student/generated_card.html', **details)
+    return render_template('student/generated_card.html')
 
 
 @student_bp.route('/get-card/', methods=['GET'])
