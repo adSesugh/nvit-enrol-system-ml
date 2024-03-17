@@ -44,7 +44,7 @@ def album_list():
 @student_bp.route("/wb-album-for-male", methods=["GET"])
 @login_required
 def wb_album():
-    students = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender=='Male')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
+    students = Student.query.filter((Student.employment_status != 'Employed') & (Student.gender=='Male') & (Student.disabled !='no')).order_by(Student.id).all()  #db.session.execute(db.select(Student).order_by(Student.id)).scalars().all()
     return render_template(
         "student/foralbum.html", students=students, title="Student Album"
     )
