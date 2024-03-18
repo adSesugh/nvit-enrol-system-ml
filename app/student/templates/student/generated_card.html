@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Print ID Card</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='logo_v1.png') }}" />
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -273,6 +274,11 @@
                 </div>
                 <button class="print-button" style="margin-top: 5px;" onclick="window.print()">Print ID Card</button>
             {% endif %}
+            {% if error %}
+                <div style="padding: 1px 24px;display: flex; justify-content: center; align-items: center; background-color: #bccade; border-radius: 15px;">
+                    <p style="font-size: 20px; color: #a01a1f; ">{{ error }}</p>
+                </div>
+            {% endif %}
             <div id="search-container">
                 <img id="logo" style="margin-bottom: 15px;" src="{{ url_for('static', filename='logo.png') }}" alt="Google Logo">
                 <form id="search-form" method="POST">
@@ -282,6 +288,7 @@
                         name="phone_number"
                         placeholder="Student phone number"
                         style="width: 250px;"
+                        required
                     >
                     <button style="background-color:#044666; color: #FFFFFF" id="search-btn" type="submit">Search</button>
                 </form>

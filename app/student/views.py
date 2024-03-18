@@ -117,7 +117,6 @@ def generate_card():
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')
         student = Student.query.filter_by(phone_number=phone_number).first()
-        student_session = Session.query.filter_by(id=student.stud_session).first()
 
         if student:
             qr = qrcode.make(student.phone_number)
@@ -128,13 +127,29 @@ def generate_card():
             qrcode_url = request.host_url + filename
             student_session = Session.query.filter_by(id=student.stud_session).first()
 
-        details = {
-            'student': student,
-            'session': student_session.duration,
-            'qrcode_url': qrcode_url
-        }
+            if student_session:
+                details = {
+                    'student': student,
+                    'session': student_session.duration,
+                    'qrcode_url': qrcode_url,
+                    'error': None
+                }
 
+                return render_template('student/generated_card.html', **details)
+
+            else:
+                details = {
+                    'student': None,
+                    'error': "You're not given admission. Please contact Administrator"
+                }
+                return render_template('student/generated_card.html', **details)
+
+        details = {
+            'student': None,
+            'error': "Learner with the provided details is not found"
+        }
         return render_template('student/generated_card.html', **details)
+
     return render_template('student/generated_card.html')
 
 
