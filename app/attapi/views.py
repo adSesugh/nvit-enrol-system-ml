@@ -28,12 +28,12 @@ CORS(att_bp, resources={r"/api/*": {"origins": "*"}})
 def login_v1():
     data = request.get_json()
 
-    device_exists = Student.query.filter_by(device_id=data['deviceId']).first()
-
-    if device_exists:
-        student = Student.query.filter_by(phone_number=data['phone_number']).first()
-        if student is None or device_exists.phone_number != student.phone_number:
-            return jsonify({'error': 'Already logged in with another device!'}), 401
+    # device_exists = Student.query.filter_by(device_id=data['deviceId']).first()
+    #
+    # if device_exists:
+    #     student = Student.query.filter_by(phone_number=data['phone_number']).first()
+    #     if student is None or device_exists.phone_number != student.phone_number:
+    #         return jsonify({'error': 'Already logged in with another device!'}), 401
 
     student = Student.query.filter_by(phone_number=data['phone_number']).first()
     if student and student.stud_session is not None:
