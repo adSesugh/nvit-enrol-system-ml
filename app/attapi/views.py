@@ -192,7 +192,7 @@ def get_profile():
 @att_bp.route('/api/learner-board', methods=['GET'])
 @jwt_required()
 def get_learner_board():
-    attendances = Attendance.query.filter_by(student_id=current_user.id).order_by(Attendance.id.desc()).limit(5).all()
+    attendances = Attendance.query.filter_by(student_id=current_user.id).order_by(Attendance.checkin.desc()).limit(5).all()
     actual_attendance = Attendance.query.filter_by(status=True, student_id=current_user.id).count()
     expected_attendance = Attendance.query.filter_by(student_id=current_user.id).count()
     attendance_performance = actual_attendance / expected_attendance * 100 if expected_attendance > 0 else 0
