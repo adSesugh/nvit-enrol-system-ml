@@ -108,7 +108,9 @@ def generate_qrcode():
         qr.save(qr_img_path, format='PNG')
 
         filename = f'static/qrcodes/{current_user.phone_number}.png'
-        qr_img_url = request.host_url + filename
+        server_host_url = request.host_url
+        base_img_url = server_host_url.replace("http://", "https://")
+        qr_img_url = base_img_url + filename
 
         return jsonify({'qr_code': qr_img_url}), 200
     return jsonify({'error': 'Data not provided'}), 404

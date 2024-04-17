@@ -90,11 +90,10 @@ class Student(db.Model):
                 break
         return code
 
-
     def student_card_course(self):
-        code = ''
+        code_name = ''
         for cor in course_short:
             if cor['name'] == self.course_of_study:
-                code = cor['code']
+                code_name = cor['code']
                 break
-        return code
+        return code_name
